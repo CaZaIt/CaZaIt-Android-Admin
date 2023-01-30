@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.view.state.CafeStateActivity">
+
+    <ImageView
+        android:id="@+id/iv_cafe_state_coffee"
+        android:layout_width="63dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="276dp"
+        android:layout_marginTop="108dp"
+        android:contentDescription="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_coffee" />
+
+    <TextView
+        android:id="@+id/tv_cafe_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:fontFamily="@font/roboto_bold"
+        android:text="롬곡"
+        android:textColor="@color/cazait_dark_choco"
+        android:textSize="60sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_cafe_state_coffee"
+        app:layout_constraintStart_toEndOf="@+id/iv_cafe_state_coffee"
+        app:layout_constraintTop_toTopOf="@+id/iv_cafe_state_coffee" />
+
+    <Button
+        android:id="@+id/btn_cafe_state_free"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="159dp"
+        android:text="여유"
+        android:textColor="@color/cazait_white"
+        android:textSize="60sp"
+        android:fontFamily="@font/roboto_bold"
+        android:background="@color/cazait_beige"
+        app:layout_constraintBottom_toTopOf="@+id/btn_cafe_state_crowded"
+        app:layout_constraintEnd_toStartOf="@+id/btn_cafe_state_normal"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_cafe_state" />
+
+    <Button
+        android:id="@+id/btn_cafe_state_normal"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="159dp"
+        android:layout_marginEnd="80dp"
+        android:text="보통"
+        android:textColor="@color/cazait_white"
+        android:textSize="60sp"
+        android:fontFamily="@font/roboto_bold"
+        android:background="@color/cazait_latte_beige"
+        app:layout_constraintBottom_toTopOf="@+id/btn_cafe_state_very_crowded"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_cafe_state_free"
+        app:layout_constraintTop_toBottomOf="@+id/tv_cafe_state" />
+
+    <Button
+        android:id="@+id/btn_cafe_state_crowded"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="22dp"
+        android:text="혼잡"
+        android:textColor="@color/cazait_white"
+        android:textSize="60sp"
+        android:fontFamily="@font/roboto_bold"
+        android:background="@color/cazait_coffee"
+        app:layout_constraintStart_toStartOf="@+id/btn_cafe_state_free"
+        app:layout_constraintTop_toBottomOf="@+id/btn_cafe_state_free" />
+
+    <Button
+        android:id="@+id/btn_cafe_state_very_crowded"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="22dp"
+        android:text="매우\n혼잡"
+        android:textColor="@color/cazait_white"
+        android:textSize="60sp"
+        android:fontFamily="@font/roboto_bold"
+        android:background="@color/cazait_choco_tablet"
+        app:layout_constraintEnd_toEndOf="@+id/btn_cafe_state_normal"
+        app:layout_constraintTop_toBottomOf="@+id/btn_cafe_state_normal" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
