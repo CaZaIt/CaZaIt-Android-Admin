@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
+    <color name="cazait_coffee">#7D5B51</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+
+    <color name="cazait_black">#FF000000</color>
+    <color name="cazait_white">#FFFFFFFF</color>
+    <color name="cazait_beige">#FAF0DD</color>
+    <color name="cazait_choco_tablet">#533329</color>
+    <color name="cazait_latte_beige">#E5D3CB</color>
+    <color name="cazait_foam_white">#F1F1EF</color>
+    <color name="cazait_base_color_f5">#F5F5F5</color>
+    <color name="cazait_dark_choco">#8A5F5F</color>
+    <color name="cazait_free">#5D2424</color>
 
     <color name="cazait_btn_login">#CCB6AF</color>
     <color name="cazait_et_hint">#7D5B51</color>
