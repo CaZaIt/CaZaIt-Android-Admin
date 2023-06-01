@@ -1,4 +1,4 @@
-package org.cazait.data.model
+package com.bmsk.model
 
 /**
  * Data class that captures user information for logged in users retrieved from LoginRepository

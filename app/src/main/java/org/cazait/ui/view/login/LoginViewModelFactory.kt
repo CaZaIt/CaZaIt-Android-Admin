@@ -2,8 +2,8 @@ package org.cazait.ui.view.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import org.cazait.data.LoginDataSource
-import org.cazait.data.LoginRepository
+import datasource.SignInDataSource
+import SignInRepository
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.
@@ -15,8 +15,8 @@ class LoginViewModelFactory : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LoginViewModel::class.java)) {
             return LoginViewModel(
-                loginRepository = LoginRepository(
-                    dataSource = LoginDataSource()
+                loginRepository = SignInRepository(
+                    dataSource = datasource.SignInDataSource()
                 )
             ) as T
         }

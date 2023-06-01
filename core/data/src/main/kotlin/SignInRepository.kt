@@ -1,19 +1,17 @@
-package org.cazait.data
-
-import org.cazait.data.model.LoggedInUser
+import com.bmsk.model.LoggedInUser
 
 /**
  * Class that requests authentication and user information from the remote data source and
  * maintains an in-memory cache of login status and user credentials information.
  */
 
-class LoginRepository(val dataSource: LoginDataSource) {
+class SignInRepository(val dataSource: datasource.SignInDataSource) {
 
     // in-memory cache of the loggedInUser object
     var user: LoggedInUser? = null
         private set
 
-    val isLoggedIn: Boolean
+    val isSignIn: Boolean
         get() = user != null
 
     init {
@@ -22,14 +20,14 @@ class LoginRepository(val dataSource: LoginDataSource) {
         user = null
     }
 
-    fun logout() {
+    fun signOut() {
         user = null
-        dataSource.logout()
+        dataSource.signOut()
     }
 
-    fun login(username: String, password: String): Result<LoggedInUser> {
+    fun signIn(username: String, password: String): Result<LoggedInUser> {
         // handle login
-        val result = dataSource.login(username, password)
+        val result = dataSource.signIn(username, password)
 
         if (result is Result.Success) {
             setLoggedInUser(result.data)

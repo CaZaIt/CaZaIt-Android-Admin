@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start"
             android:layout_marginTop="30dp"
-            android:background="@drawable/btn_round"
+            android:background="@drawable/rectangle_black_r20"
             android:enabled="false"
             android:fontFamily="@font/roboto_bold"
             android:maxWidth="310dp"

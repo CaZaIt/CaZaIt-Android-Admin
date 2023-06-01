@@ -14,4 +14,6 @@
     <string name="login_login">LOGIN</string>
     <string name="login_email">Email</string>
     <string name="login_password">Password</string>
+    <string name="login">LOGIN</string>
+    <string name="sign_up">회원가입</string>
 </resources>
