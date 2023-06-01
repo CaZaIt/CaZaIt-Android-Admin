@@ -1,4 +1,4 @@
-package repository
+package org.cazait.data.repository
 
 import com.bmsk.model.Resource
 import com.bmsk.model.SignInInfo
@@ -10,8 +10,8 @@ import kotlinx.coroutines.flow.flowOn
 import model.DataResponse
 import model.request.SignInReq
 import model.request.SignUpReq
-import model.toSignInInfo
-import model.toSignUpInfo
+import org.cazait.data.model.toSignInInfo
+import org.cazait.data.model.toSignUpInfo
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 

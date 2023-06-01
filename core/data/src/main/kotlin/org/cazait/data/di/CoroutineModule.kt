@@ -1,4 +1,4 @@
-package di
+package org.cazait.data.di
 
 import dagger.Module
 import dagger.Provides

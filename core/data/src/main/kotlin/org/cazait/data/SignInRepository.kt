@@ -1,4 +1,4 @@
-//import com.bmsk.model.LoggedInUser
+package org.cazait.data//import com.bmsk.model.LoggedInUser
 //
 ///**
 // * Class that requests authentication and user information from the remote data source and

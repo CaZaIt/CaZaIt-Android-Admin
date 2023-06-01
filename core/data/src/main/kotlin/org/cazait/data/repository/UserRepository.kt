@@ -1,4 +1,4 @@
-package repository
+package org.cazait.data.repository
 
 import com.bmsk.model.EmailDup
 import com.bmsk.model.NicknameDup

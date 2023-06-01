@@ -1,4 +1,4 @@
-package model
+package org.cazait.data.model
 
 import com.bmsk.model.SignInInfo
 import com.bmsk.model.SignUpInfo

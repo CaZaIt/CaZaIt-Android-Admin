@@ -1,3 +1,5 @@
+package org.cazait.data
+
 /**
  * Data validation state of the login form.
  */
