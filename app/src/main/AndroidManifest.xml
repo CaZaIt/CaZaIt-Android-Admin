@@ -16,19 +16,16 @@
             android:name=".ui.view.state.CafeStateActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.view.login.LoginActivity"
-            android:exported="true"
-            android:theme="@style/Theme.CaZaIt.Splash"
-            android:label="@string/title_activity_login">
+            android:name=".ui.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name="org.cazait.ui.view.signin.SignInActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="false">
         </activity>
     </application>
 
