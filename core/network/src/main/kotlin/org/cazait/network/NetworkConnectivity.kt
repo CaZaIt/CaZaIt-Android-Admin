@@ -1,3 +1,5 @@
+package org.cazait.network
+
 import android.net.ConnectivityManager
 
 interface NetworkConnectivity {

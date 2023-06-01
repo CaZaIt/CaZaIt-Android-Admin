@@ -1,4 +1,4 @@
-package api
+package org.cazait.network.api
 
 import com.bmsk.model.Role
 import model.request.SignInReq
@@ -12,13 +12,13 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface AuthService {
-    @POST("/api/auths/log-in")
+    @POST("/org/cazait/network/api/auths/log-in")
     suspend fun postSignIn(
         @Body
         signInReq: SignInReq
     ): Response<SignInRes>
 
-    @GET("/api/auths/refresh/{userIdx}")
+    @GET("/org/cazait/network/api/auths/refresh/{userIdx}")
     suspend fun getRefreshToken(
         @Path("userIdx")
         userIdx: Long,

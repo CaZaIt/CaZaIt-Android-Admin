@@ -1,4 +1,4 @@
-package datasource
+package org.cazait.network.datasource
 
 import com.bmsk.model.Role
 import model.DataResponse

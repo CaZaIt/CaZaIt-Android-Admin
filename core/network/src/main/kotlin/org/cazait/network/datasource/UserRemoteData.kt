@@ -1,15 +1,12 @@
-package datasource
+package org.cazait.network.datasource
 
-import NetworkConnectivity
-import android.provider.ContactsContract.Data
-import api.AuthService
-import api.UserService
-import com.bmsk.model.LoggedInUser
+import org.cazait.network.NetworkConnectivity
+import org.cazait.network.api.AuthService
+import org.cazait.network.api.UserService
 import com.bmsk.model.Role
 import model.DataResponse
 import model.NETWORK_ERROR
 import model.NO_INTERNET_CONNECTION
-import model.dto.TokenDTO
 import model.request.SignInReq
 import model.request.SignUpReq
 import model.response.RefreshTokenRes
@@ -17,7 +14,6 @@ import model.response.SignInRes
 import model.response.SignUpRes
 import retrofit2.Response
 import java.io.IOException
-import java.util.UUID
 import javax.inject.Inject
 
 class UserRemoteData @Inject constructor(

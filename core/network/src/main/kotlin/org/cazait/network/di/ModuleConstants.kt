@@ -1,4 +1,4 @@
-package di
+package org.cazait.network.di
 
 const val TIMEOUT_READ = 5L // In seconds
 const val TIMEOUT_CONNECT = 5L // In seconds

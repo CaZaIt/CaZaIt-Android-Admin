@@ -1,8 +1,10 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
-    id 'dagger.hilt.android.plugin'
+    id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -33,23 +35,23 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':core:model')
-
-    implementation 'androidx.core:core-ktx:1.8.0'
-
-    // Gson
-    implementation("com.squareup.retrofit2:converter-gson:$gsonVersion")
+    implementation("androidx.core:core-ktx:1.10.1")
+    implementation("androidx.appcompat:appcompat:1.6.1")
 
     // Hilt Library
     implementation("com.google.dagger:hilt-android:$hiltVersion")
+    implementation project(path: ':core:model')
     kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
     kapt("androidx.hilt:hilt-compiler:$hiltCompilerVersion")
+
+    // Gson
+    implementation("com.squareup.retrofit2:converter-gson:$gsonVersion")
 
     // okHttp
     implementation("com.squareup.okhttp3:logging-interceptor:$okHttpVersion")
     implementation("com.squareup.okhttp3:okhttp:$okHttpVersion")
 
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    def mockito_version = "3.5.13"
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.mockito:mockito-core:$mockito_version")
 }

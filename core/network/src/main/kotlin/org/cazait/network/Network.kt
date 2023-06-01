@@ -1,6 +1,8 @@
-import android.content.Context;
+package org.cazait.network
+
+import android.content.Context
 import android.net.ConnectivityManager
-import javax.inject.Inject;
+import javax.inject.Inject
 
 class Network @Inject constructor(
     private val context: Context

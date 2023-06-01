@@ -11,5 +11,5 @@ data class SignUpRes(
     @SerializedName("message")
     val message: String,
     @SerializedName("data")
-    val signUpResultDTO: SignUpResultDTO
+    val signUpResult: SignUpResultDTO? = null
 )

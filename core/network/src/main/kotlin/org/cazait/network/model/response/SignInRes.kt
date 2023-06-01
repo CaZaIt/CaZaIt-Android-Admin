@@ -11,5 +11,5 @@ data class SignInRes(
     @SerializedName("message")
     val message: String,
     @SerializedName("data")
-    val signInResult: SignInResultDTO
+    val signInResult: SignInResultDTO? = null
 )
