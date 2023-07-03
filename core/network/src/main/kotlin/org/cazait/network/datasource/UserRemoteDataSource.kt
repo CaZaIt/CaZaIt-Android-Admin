@@ -1,16 +1,16 @@
 package org.cazait.network.datasource
 
-import com.bmsk.model.Role
-import model.DataResponse
-import model.request.SignInReq
-import model.request.SignUpReq
-import model.response.RefreshTokenRes
-import model.response.SignInRes
-import model.response.SignUpRes
+import org.cazait.network.model.DataResponse
+import org.bmsk.domain.model.Role
+import org.cazait.network.model.request.SignInReq
+import org.cazait.network.model.request.SignUpReq
+import org.cazait.network.model.response.RefreshTokenRes
+import org.cazait.network.model.response.SignInRes
+import org.cazait.network.model.response.SignUpRes
 
 interface UserRemoteDataSource {
-    suspend fun postSignUp(body: SignUpReq): DataResponse<SignUpRes>
-    suspend fun postSignIn(body: SignInReq): DataResponse<SignInRes>
+    suspend fun postSignUp(email: String, password: String, nickname: String): DataResponse<SignUpRes>
+    suspend fun postSignIn(email: String, password: String): DataResponse<SignInRes>
     suspend fun getRefreshToken(
         userIdx: Long,
         role: Role,

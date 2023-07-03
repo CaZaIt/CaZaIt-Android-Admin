@@ -1,63 +1,91 @@
 package org.cazait.data.repository
 
-import com.bmsk.model.Resource
-import com.bmsk.model.SignInInfo
-import com.bmsk.model.SignUpInfo
-import org.cazait.network.datasource.UserRemoteData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import model.DataResponse
-import model.request.SignInReq
-import model.request.SignUpReq
-import org.cazait.data.model.toSignInInfo
-import org.cazait.data.model.toSignUpInfo
+import org.bmsk.domain.model.SignInResult
+import org.bmsk.domain.model.SignUpInfo
+import org.bmsk.domain.repository.UserRepository
+import org.cazait.datastore.data.repository.UserPreferenceRepository
+import org.cazait.model.local.UserPreference
+import org.cazait.network.datasource.UserRemoteData
+import org.cazait.network.model.DataResponse
+import org.cazait.network.model.dto.SignInResultDTO
+import org.cazait.network.model.dto.SignUpResultDTO
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
 class UserRepositoryImpl @Inject constructor(
     private val remoteData: UserRemoteData,
+    private val userPreferenceRepository: UserPreferenceRepository,
     private val ioDispatcher: CoroutineContext,
 ) : UserRepository {
-    override val userId: Long? = null
 
-    override suspend fun signUp(email: String, password: String, nickname: String): Flow<Resource<SignUpInfo>> {
+    override suspend fun signUp(
+        email: String,
+        password: String,
+        nickname: String
+    ): Flow<SignUpInfo> {
         return flow {
-            val body = SignUpReq(email, password, nickname)
-
-            when (val response = remoteData.postSignUp(body)) {
+            when (val response = remoteData.postSignUp(email, password, nickname)) {
                 is DataResponse.Success -> {
-                    response.data?.let {
-                        emit(Resource.Success(it.signUpResult?.toSignUpInfo()?: SignUpInfo.getEmptyInfo()))
-                    } ?: emit(Resource.Error("잘못된 결과입니다."))
+                    response.data?.signUpResult?.let {
+                        emit(it.toSignUpInfo())
+                    }
                 }
 
                 is DataResponse.DataError -> {
-                    emit(Resource.Error(response.toString()))
+                    emit(SignUpInfo.getEmptyInfo())
                 }
             }
         }.flowOn(ioDispatcher)
     }
 
-    override suspend fun refreshToken() {
+    override suspend fun isNicknameDup(nickname: String): Flow<Boolean> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun signIn(email: String, password: String): Flow<Resource<SignInInfo>> {
-        return flow {
-            val body = SignInReq(email, password)
+    override suspend fun isEmailDup(email: String): Flow<Boolean> {
+        TODO("Not yet implemented")
+    }
 
-            when (val response = remoteData.postSignIn(body)) {
+    override suspend fun refreshToken(): Flow<String> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getCurrentUser(): Flow<UserPreference> {
+       return  userPreferenceRepository.getUserPreference()
+    }
+
+    override suspend fun signIn(email: String, password: String): Flow<SignInResult> {
+        return flow {
+            when (val response = remoteData.postSignIn(email, password)) {
                 is DataResponse.Success -> {
-                    response.data?.signInResult?.toSignInInfo()?.let {
-                        emit(Resource.Success(it))
-                    }?: emit(Resource.Error(response.toString()))
+                    response.data?.let {
+                        it.signInResult?.let { resultData ->
+                            emit(resultData.asDomain())
+                        } ?: emit(SignInResult.FailInfo(it.message))
+                    } ?: emit(SignInResult.FailInfo("로그인에 실패했습니다."))
                 }
 
                 is DataResponse.DataError -> {
-                    emit(Resource.Error(response.toString()))
+                    emit(SignInResult.FailInfo("로그인에 실패했습니다. 네트워크 연결을 확인해주세요."))
                 }
             }
         }.flowOn(ioDispatcher)
     }
+
+    private fun SignInResultDTO.asDomain() = SignInResult.SuccessInfo(
+        email = email,
+        id = id,
+        accessToken = jwtToken,
+        refreshToken = refreshToken,
+        role = role,
+    )
+
+    private fun SignUpResultDTO.toSignUpInfo() = SignUpInfo(
+        id = id,
+        email = email,
+        nickname = nickname,
+    )
 }

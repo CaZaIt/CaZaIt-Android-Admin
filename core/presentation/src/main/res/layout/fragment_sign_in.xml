@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="org.cazait.presentation.ui.signin.SignInViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
@@ -28,6 +35,7 @@
             android:autofillHints="@string/login_email"
             android:hint="@string/login_email"
             android:inputType="textEmailAddress"
+            android:text="@{viewModel.emailText}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_login_head"
@@ -42,11 +50,13 @@
             android:imeActionLabel="@string/action_sign_in_short"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
+            android:text="@{viewModel.passwordText}"
+            android:textColorHint="@color/et_hint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/et_login_email" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_login_do_login"
             style="@style/LoginButton"
             android:layout_gravity="center_horizontal|top"

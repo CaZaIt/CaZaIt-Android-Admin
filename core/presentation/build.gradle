@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
     id 'androidx.navigation.safeargs.kotlin'
 }
 
@@ -30,9 +31,14 @@ android {
     kotlinOptions {
         jvmTarget = '17'
     }
+    buildFeatures {
+        dataBinding = true
+    }
 }
 
 dependencies {
+    implementation project(":core:domain")
+    implementation project(":core:model")
 
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.appcompat:appcompat:1.6.1'
@@ -40,6 +46,9 @@ dependencies {
 
     // 스플래쉬
     implementation("androidx.core:core-splashscreen:1.0.1")
+    // Hilt Library
+    implementation("com.google.dagger:hilt-android:$hiltVersion")
+    kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
     // Navigation
     implementation("androidx.navigation:navigation-ui-ktx:2.6.0")
     implementation("androidx.navigation:navigation-fragment-ktx:2.6.0")

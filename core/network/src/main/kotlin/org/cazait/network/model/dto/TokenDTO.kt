@@ -1,7 +1,7 @@
-package model.dto
+package org.cazait.network.model.dto
 
-import com.bmsk.model.Role
 import com.google.gson.annotations.SerializedName
+import org.bmsk.domain.model.Role
 
 data class TokenDTO(
     @SerializedName("id")

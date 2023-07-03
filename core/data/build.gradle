@@ -33,9 +33,10 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':core:model')
-    implementation project(path: ':core:network')
-
+    implementation project(":core:model")
+    implementation project(":core:network")
+    implementation project(":core:domain")
+    implementation project(":core:datastore")
     implementation 'androidx.core:core-ktx:1.10.1'
 
     // Hilt Library

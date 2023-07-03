@@ -1,4 +1,4 @@
-package com.bmsk.model
+package org.bmsk.domain
 
 sealed class Resource<T> {
     data class Loading<T>(val data: T? = null) : Resource<T>()

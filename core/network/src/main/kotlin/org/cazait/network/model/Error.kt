@@ -1,4 +1,4 @@
-package model
+package org.cazait.network.model
 
 const val DEFAULT_ERROR = -1
 const val NO_INTERNET_CONNECTION = -2

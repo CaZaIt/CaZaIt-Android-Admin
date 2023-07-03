@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/nav_host">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_host"
+    app:startDestination="@id/signInFragment">
 
+    <fragment
+        android:id="@+id/signInFragment"
+        android:name="org.cazait.presentation.ui.signin.SignInFragment"
+        android:label="SignInFragment"
+        tools:layout="@layout/fragment_sign_in" >
+        <action
+            android:id="@+id/action_signInFragment_to_storeStatusFragment"
+            app:destination="@id/storeStatusFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/storeStatusFragment"
+        android:name="org.cazait.presentation.ui.storestatus.StoreStatusFragment"
+        android:label="StoreStatusFragment"
+        tools:layout="@layout/fragment_store_status"/>
 </navigation>

@@ -51,7 +51,6 @@ dependencies {
     // Hilt Library
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
-    kapt("androidx.hilt:hilt-compiler:$hiltCompilerVersion")
 
     // 스플래쉬
     implementation("androidx.core:core-splashscreen:1.0.1")
