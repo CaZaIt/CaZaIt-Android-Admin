@@ -1,7 +1,7 @@
-package model.response
+package org.cazait.network.model.response
 
 import com.google.gson.annotations.SerializedName
-import model.dto.SignUpResultDTO
+import org.cazait.network.model.dto.SignUpResultDTO
 
 data class SignUpRes(
     @SerializedName("code")

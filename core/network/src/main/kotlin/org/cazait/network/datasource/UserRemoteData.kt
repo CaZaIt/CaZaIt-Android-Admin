@@ -3,15 +3,16 @@ package org.cazait.network.datasource
 import org.cazait.network.NetworkConnectivity
 import org.cazait.network.api.AuthService
 import org.cazait.network.api.UserService
-import com.bmsk.model.Role
-import model.DataResponse
-import model.NETWORK_ERROR
-import model.NO_INTERNET_CONNECTION
-import model.request.SignInReq
-import model.request.SignUpReq
-import model.response.RefreshTokenRes
-import model.response.SignInRes
-import model.response.SignUpRes
+import org.cazait.network.model.DataResponse
+import org.bmsk.domain.model.Role
+import org.cazait.network.model.NETWORK_ERROR
+import org.cazait.network.model.NO_INTERNET_CONNECTION
+import org.cazait.network.model.request.IsNicknameDupReq
+import org.cazait.network.model.request.SignInReq
+import org.cazait.network.model.request.SignUpReq
+import org.cazait.network.model.response.RefreshTokenRes
+import org.cazait.network.model.response.SignInRes
+import org.cazait.network.model.response.SignUpRes
 import retrofit2.Response
 import java.io.IOException
 import javax.inject.Inject
@@ -22,7 +23,13 @@ class UserRemoteData @Inject constructor(
     private val networkConnectivity: NetworkConnectivity
 ) : UserRemoteDataSource {
 
-    override suspend fun postSignUp(body: SignUpReq): DataResponse<SignUpRes> {
+    override suspend fun postSignUp(
+        email: String,
+        password: String,
+        nickname: String
+    ): DataResponse<SignUpRes> {
+        val body = SignUpReq(email, password, nickname)
+
         return when (val response = processCall {
             userService.postSignUp(body)
         }) {
@@ -36,7 +43,8 @@ class UserRemoteData @Inject constructor(
         }
     }
 
-    override suspend fun postSignIn(body: SignInReq): DataResponse<SignInRes> {
+    override suspend fun postSignIn(email: String, password: String): DataResponse<SignInRes> {
+        val body = SignInReq(email, password)
         return when (val response = processCall {
             authService.postSignIn(body)
         }) {
@@ -65,6 +73,10 @@ class UserRemoteData @Inject constructor(
                 DataResponse.DataError(errorCode = response as Int)
             }
         }
+    }
+
+    override suspend fun postIsEmailDup(email: String): DataResponse<IsNicknameDupReq> {
+        TODO("Not yet implemented")
     }
 
     private suspend fun processCall(

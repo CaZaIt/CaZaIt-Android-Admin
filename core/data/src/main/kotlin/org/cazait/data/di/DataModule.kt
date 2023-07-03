@@ -4,7 +4,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import org.cazait.data.repository.UserRepository
+import org.bmsk.domain.repository.UserRepository
 import org.cazait.data.repository.UserRepositoryImpl
 
 @Module

@@ -1,4 +1,4 @@
-package model
+package org.cazait.network.model
 
 sealed class DataResponse<T>(
     val data: T? = null,
