@@ -7,7 +7,7 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 interface UserService {
-    @POST("/org/cazait/network/api/masters/sign-up")
+    @POST("/api/masters/sign-up")
     suspend fun postSignUp(
         @Body
         signUpReq: SignUpReq

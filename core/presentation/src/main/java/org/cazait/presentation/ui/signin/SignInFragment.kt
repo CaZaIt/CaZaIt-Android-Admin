@@ -37,6 +37,8 @@ class SignInFragment : Fragment() {
             false
         ).apply {
             lifecycleOwner = this@SignInFragment.viewLifecycleOwner
+            viewModel = this@SignInFragment.viewModel
+            fragment = this@SignInFragment
         }
         return binding.root
     }
@@ -86,5 +88,9 @@ class SignInFragment : Fragment() {
 
     private fun navigateToStoreStatusFragment() {
         findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToStoreStatusFragment())
+    }
+
+    fun navigateToSignUpFragment() {
+        findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment())
     }
 }

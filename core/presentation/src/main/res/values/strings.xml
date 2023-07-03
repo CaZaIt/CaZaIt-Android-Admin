@@ -21,4 +21,9 @@
     <string name="login_password">Password</string>
     <string name="login">LOGIN</string>
     <string name="sign_up">회원가입</string>
+    <string name="email_example">이메일: 예) cazait@caza.com</string>
+    <string name="password">비밀번호</string>
+    <string name="password_double_check">비밀번호 확인</string>
+    <string name="nickname">닉네임</string>
+    <string name="do_sign_up">회원가입하기</string>
 </resources>
