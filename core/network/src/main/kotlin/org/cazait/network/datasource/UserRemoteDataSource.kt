@@ -2,6 +2,7 @@ package org.cazait.network.datasource
 
 import org.cazait.network.model.DataResponse
 import org.bmsk.domain.model.Role
+import org.cazait.network.model.request.IsNicknameDupReq
 import org.cazait.network.model.request.SignInReq
 import org.cazait.network.model.request.SignUpReq
 import org.cazait.network.model.response.RefreshTokenRes
@@ -15,4 +16,5 @@ interface UserRemoteDataSource {
         userIdx: Long,
         role: Role,
     ): DataResponse<RefreshTokenRes>
+    suspend fun postIsEmailDup(email: String): DataResponse<IsNicknameDupReq>
 }

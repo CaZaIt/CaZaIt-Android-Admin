@@ -7,6 +7,7 @@ import org.cazait.network.model.DataResponse
 import org.bmsk.domain.model.Role
 import org.cazait.network.model.NETWORK_ERROR
 import org.cazait.network.model.NO_INTERNET_CONNECTION
+import org.cazait.network.model.request.IsNicknameDupReq
 import org.cazait.network.model.request.SignInReq
 import org.cazait.network.model.request.SignUpReq
 import org.cazait.network.model.response.RefreshTokenRes
@@ -72,6 +73,10 @@ class UserRemoteData @Inject constructor(
                 DataResponse.DataError(errorCode = response as Int)
             }
         }
+    }
+
+    override suspend fun postIsEmailDup(email: String): DataResponse<IsNicknameDupReq> {
+        TODO("Not yet implemented")
     }
 
     private suspend fun processCall(
