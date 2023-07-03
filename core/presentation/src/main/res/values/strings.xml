@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="state_free">여유</string>
+    <string name="state_normal">보통</string>
+    <string name="state_crowded">혼잡</string>
+    <string name="very_crowded">매우 혼잡</string>
+
+    <string name="title_activity_login">카자잇 관리자</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+
+    <string name="do_login">로그인 하기</string>
+    <string name="login_login">LOGIN</string>
+    <string name="login_email">Email</string>
+    <string name="login_password">Password</string>
+    <string name="login">LOGIN</string>
+    <string name="sign_up">회원가입</string>
+</resources>

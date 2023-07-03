@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/iv_cafe_state_coffee"
+            android:layout_width="63dp"
+            android:layout_height="63dp"
+            android:layout_marginStart="276dp"
+            android:layout_marginTop="108dp"
+            android:contentDescription="@null"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_coffee" />
+
+        <TextView
+            android:id="@+id/tv_cafe_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="@color/dark_choco"
+            android:textSize="60sp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_cafe_state_coffee"
+            app:layout_constraintStart_toEndOf="@+id/iv_cafe_state_coffee"
+            app:layout_constraintTop_toTopOf="@+id/iv_cafe_state_coffee"
+            tools:text="롬곡" />
+
+        <Button
+            android:id="@+id/btn_cafe_state_free"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginTop="159dp"
+            android:background="@color/beige"
+            android:fontFamily="@font/roboto_bold"
+            android:text="@string/state_free"
+            android:textColor="@color/white"
+            android:textSize="60sp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_cafe_state_crowded"
+            app:layout_constraintEnd_toStartOf="@+id/btn_cafe_state_normal"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_cafe_state" />
+
+        <Button
+            android:id="@+id/btn_cafe_state_normal"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="159dp"
+            android:layout_marginEnd="80dp"
+            android:background="@color/latte_beige"
+            android:fontFamily="@font/roboto_bold"
+            android:text="@string/state_normal"
+            android:textColor="@color/white"
+            android:textSize="60sp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_cafe_state_very_crowded"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btn_cafe_state_free"
+            app:layout_constraintTop_toBottomOf="@+id/tv_cafe_state" />
+
+        <Button
+            android:id="@+id/btn_cafe_state_crowded"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="22dp"
+            android:background="@color/coffee"
+            android:fontFamily="@font/roboto_bold"
+            android:text="@string/state_crowded"
+            android:textColor="@color/white"
+            android:textSize="60sp"
+            app:layout_constraintStart_toStartOf="@+id/btn_cafe_state_free"
+            app:layout_constraintTop_toBottomOf="@+id/btn_cafe_state_free" />
+
+        <Button
+            android:id="@+id/btn_cafe_state_very_crowded"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="22dp"
+            android:background="@color/choco_tablet"
+            android:fontFamily="@font/roboto_bold"
+            android:text="@string/very_crowded"
+            android:textColor="@color/white"
+            android:textSize="60sp"
+            app:layout_constraintEnd_toEndOf="@+id/btn_cafe_state_normal"
+            app:layout_constraintTop_toBottomOf="@+id/btn_cafe_state_normal" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -12,14 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CaZaIt"
         tools:targetApi="31">
+
         <activity
-            android:name=".ui.view.state.CafeStateActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.MainActivity"
-            android:exported="false" />
-        <activity
-            android:name="org.cazait.ui.view.signin.SignInActivity"
+            android:name=".presentation.ui.MainActivity"
+            android:theme="@style/Theme.CaZaIt.Splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
