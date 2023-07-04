@@ -34,7 +34,6 @@
             android:text="@string/state_free"
             app:layout_constraintBottom_toTopOf="@+id/btn_cafe_state_crowded"
             app:layout_constraintEnd_toStartOf="@+id/btn_cafe_state_normal"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_cafe_state" />
 
