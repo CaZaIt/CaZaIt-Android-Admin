@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class SignUpResultDTO(
     @SerializedName("id")
-    val id: Long,
+    val id: String,
     @SerializedName("email")
     val email: String,
     @SerializedName("nickname")
