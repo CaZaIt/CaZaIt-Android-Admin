@@ -5,13 +5,13 @@ import org.bmsk.domain.model.Role
 
 data class SignInResultDTO(
     @SerializedName("id")
-    val id: Long,
+    val id: String,
     @SerializedName("email")
     val email: String,
-    @SerializedName("jwtToken")
-    val jwtToken: String,
+    @SerializedName("accessToken")
+    val accessToken: String,
     @SerializedName("refreshToken")
     val refreshToken: String,
     @SerializedName("role")
-    val role: Role
+    val role: String
 )

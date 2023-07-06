@@ -1,13 +1,13 @@
 package org.bmsk.domain.model
 
 data class SignUpInfo(
-    val id: Long,
+    val id: String,
     val email: String,
     val nickname: String,
 ) {
     companion object {
         fun getEmptyInfo() = SignUpInfo(
-            id = -99L,
+            id = "",
             email = "",
             nickname = ""
         )

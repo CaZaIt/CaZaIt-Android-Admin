@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="fragment"
             type="org.cazait.presentation.ui.signin.SignInFragment" />
@@ -38,7 +39,7 @@
             android:autofillHints="@string/login_email"
             android:hint="@string/login_email"
             android:inputType="textEmailAddress"
-            android:text="@{viewModel.emailText}"
+            android:text="@={viewModel.emailText}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_login_head"
@@ -53,7 +54,7 @@
             android:imeActionLabel="@string/action_sign_in_short"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
-            android:text="@{viewModel.passwordText}"
+            android:text="@={viewModel.passwordText}"
             android:textColorHint="@color/et_hint"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -62,8 +63,8 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_login_do_login"
             style="@style/LoginButton"
-            android:layout_gravity="center_horizontal|top"
             android:layout_marginTop="@dimen/login_button_marginTop"
+            android:onClick="@{() -> viewModel.signIn()}"
             android:textColor="@color/white"
             android:textSize="21sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -100,10 +101,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:onClick="@{() -> fragment.navigateToSignUpFragment()}"
             android:text="@string/sign_up"
             android:textColor="@color/black"
             android:textSize="19sp"
-            android:onClick="@{() -> fragment.navigateToSignUpFragment()}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_login_do_login" />

@@ -12,17 +12,19 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface AuthService {
-    @POST("/org/cazait/network/api/auths/log-in")
+    @POST("/api/auths/log-in")
     suspend fun postSignIn(
         @Body
-        signInReq: SignInReq
+        signInReq: SignInReq,
+        @Query("role")
+        role: String = Role.MASTER.value,
     ): Response<SignInRes>
 
-    @GET("/org/cazait/network/api/auths/refresh/{userIdx}")
+    @GET("/api/auths/refresh/{userIdx}")
     suspend fun getRefreshToken(
         @Path("userIdx")
-        userIdx: Long,
+        userIdx: String,
         @Query("role")
-        role: Role = Role.MASTER,
+        role: String = Role.MASTER.value,
     ): Response<RefreshTokenRes>
 }

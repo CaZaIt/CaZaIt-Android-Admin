@@ -54,7 +54,7 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getCurrentUser(): Flow<UserPreference> {
-       return  userPreferenceRepository.getUserPreference()
+        return userPreferenceRepository.getUserPreference()
     }
 
     override suspend fun signIn(email: String, password: String): Flow<SignInResult> {
@@ -63,6 +63,14 @@ class UserRepositoryImpl @Inject constructor(
                 is DataResponse.Success -> {
                     response.data?.let {
                         it.signInResult?.let { resultData ->
+                            userPreferenceRepository.updateUserPreference(
+                                isLoggedIn = true,
+                                id = resultData.id,
+                                email = resultData.email,
+                                role = resultData.role,
+                                accessToken = resultData.accessToken,
+                                refreshToken = resultData.refreshToken,
+                            )
                             emit(resultData.asDomain())
                         } ?: emit(SignInResult.FailInfo(it.message))
                     } ?: emit(SignInResult.FailInfo("로그인에 실패했습니다."))
@@ -78,7 +86,7 @@ class UserRepositoryImpl @Inject constructor(
     private fun SignInResultDTO.asDomain() = SignInResult.SuccessInfo(
         email = email,
         id = id,
-        accessToken = jwtToken,
+        accessToken = accessToken,
         refreshToken = refreshToken,
         role = role,
     )

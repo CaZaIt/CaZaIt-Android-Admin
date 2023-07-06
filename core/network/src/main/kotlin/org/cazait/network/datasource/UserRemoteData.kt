@@ -1,10 +1,10 @@
 package org.cazait.network.datasource
 
+import org.bmsk.domain.model.Role
 import org.cazait.network.NetworkConnectivity
 import org.cazait.network.api.AuthService
 import org.cazait.network.api.UserService
 import org.cazait.network.model.DataResponse
-import org.bmsk.domain.model.Role
 import org.cazait.network.model.NETWORK_ERROR
 import org.cazait.network.model.NO_INTERNET_CONNECTION
 import org.cazait.network.model.request.IsNicknameDupReq
@@ -59,11 +59,11 @@ class UserRemoteData @Inject constructor(
     }
 
     override suspend fun getRefreshToken(
-        userIdx: Long,
+        userIdx: String,
         role: Role
     ): DataResponse<RefreshTokenRes> {
         return when (val response = processCall {
-            authService.getRefreshToken(userIdx, role)
+            authService.getRefreshToken(userIdx, role.value)
         }) {
             is RefreshTokenRes -> {
                 DataResponse.Success(data = response)
