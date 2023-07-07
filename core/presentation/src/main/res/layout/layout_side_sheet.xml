@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="org.cazait.presentation.ui.storestatus.StoreStatusViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp"
+        tools:layout_width="500dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/barLayout"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideLine"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.15" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:src="@drawable/ic_baseline_account_circle_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guideLine"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                style="@style/TextValue_B"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/guideLine"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="'카자잇 사장님' 안녕하세요!" />
+
+            <ImageView
+                android:id="@+id/cancelButton"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:minWidth="48dp"
+                android:padding="8dp"
+                android:src="@drawable/ic_baseline_clear_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/menu_background"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/barLayout">
+
+            <Button
+                android:id="@+id/menu_item_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/change_menu" />
+
+            <Button
+                android:id="@+id/menu_item_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/change_store_background" />
+
+            <Button
+                android:id="@+id/menu_item_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/change_store_desciption" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -26,4 +26,9 @@
     <string name="password_double_check">비밀번호 확인</string>
     <string name="nickname">닉네임</string>
     <string name="do_sign_up">회원가입하기</string>
+    <string name="cd_menu_button">메뉴 버튼</string>
+    <string name="manage_store">카자잇 매장 관리</string>
+    <string name="change_menu">메뉴 변경</string>
+    <string name="change_store_background">가게 사진 추기/변경</string>
+    <string name="change_store_desciption">가게 설명 추가/변경</string>
 </resources>

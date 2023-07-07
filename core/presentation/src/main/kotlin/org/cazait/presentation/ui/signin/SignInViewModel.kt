@@ -1,5 +1,6 @@
 package org.cazait.presentation.ui.signin
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -7,7 +8,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import org.bmsk.domain.model.SignInResult
+import org.bmsk.domain.Result
+import org.bmsk.domain.model.SignInInfo
 import org.bmsk.domain.usecase.UserUseCase
 import org.cazait.model.local.UserPreference
 import javax.inject.Inject
@@ -22,8 +24,11 @@ class SignInViewModel @Inject constructor(
     val emailText = MutableStateFlow("")
     val passwordText = MutableStateFlow("")
 
-    private val _signInResult = MutableStateFlow<SignInResult?>(null)
-    val signInResult = _signInResult.asStateFlow()
+    private val _signInInfoStateFlow = MutableStateFlow<SignInInfo?>(null)
+    val signInInfoStateFlow = _signInInfoStateFlow.asStateFlow()
+
+    private val _guideMessage = MutableStateFlow("")
+    val guideMessage = _guideMessage.asStateFlow()
 
     init {
         viewModelScope.launch {
@@ -32,8 +37,18 @@ class SignInViewModel @Inject constructor(
     }
 
     fun signIn() {
+        Log.d("SignInViewModel", "singin")
         viewModelScope.launch {
-            _signInResult.value = userUseCase.signIn(emailText.value, passwordText.value).first()
+            val signInResult = userUseCase.signIn(emailText.value, passwordText.value).first()
+            if (signInResult is Result.Success) {
+                _signInInfoStateFlow.value = signInResult.data
+            } else if (signInResult is Result.Fail) {
+                _guideMessage.value = signInResult.message
+            } else if (signInResult is Result.Error) {
+                // 대응되는 코드 어떻게 할지 고민
+            } else {
+                Log.d("SignInViewModel", "뭐가 문제야.")
+            }
         }
     }
 }

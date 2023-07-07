@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import org.bmsk.domain.Result
 import org.bmsk.domain.model.SignUpInfo
 import org.bmsk.domain.usecase.UserUseCase
 import javax.inject.Inject
@@ -22,8 +23,12 @@ class SignUpViewModel @Inject constructor(
     val passwordText = MutableStateFlow("")
     val passwordDoubleCheckText = MutableStateFlow("")
     val nicknameText = MutableStateFlow("")
+
     private val _signUpInfoStateFlow = MutableStateFlow<SignUpInfo?>(null)
     val signUpInfoStateFlow = _signUpInfoStateFlow.asStateFlow()
+
+    private val _guideMessage = MutableStateFlow("")
+    val guideMessage = _guideMessage.asStateFlow()
 
     fun signUp() {
         viewModelScope.launch {
@@ -33,11 +38,18 @@ class SignUpViewModel @Inject constructor(
 
             Log.e("SignUpViewModel", "email=${email}, password=${password}")
 
-            _signUpInfoStateFlow.value = userUseCase.signUp(
+            val signUpResult = userUseCase.signUp(
                 email = email,
                 password = password,
                 nickname = nickname
             ).first()
+
+            if(signUpResult is Result.Success) {
+                _signUpInfoStateFlow.value = signUpResult.data
+            } else if(signUpResult is Result.Fail) {
+                _guideMessage.value = signUpResult.message
+
+            }
         }
     }
 }

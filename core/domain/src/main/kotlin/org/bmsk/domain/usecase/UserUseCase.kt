@@ -1,7 +1,8 @@
 package org.bmsk.domain.usecase
 
 import kotlinx.coroutines.flow.Flow
-import org.bmsk.domain.model.SignInResult
+import org.bmsk.domain.Result
+import org.bmsk.domain.model.SignInInfo
 import org.bmsk.domain.model.SignUpInfo
 import org.bmsk.domain.repository.UserRepository
 import org.cazait.model.local.UserPreference
@@ -14,11 +15,11 @@ class UserUseCase @Inject constructor(
         return repository.getCurrentUser()
     }
 
-    suspend fun signIn(email: String, password: String): Flow<SignInResult> {
+    suspend fun signIn(email: String, password: String): Flow<Result<SignInInfo>> {
         return repository.signIn(email, password)
     }
 
-    suspend fun signUp(email: String, password: String, nickname: String): Flow<SignUpInfo> {
+    suspend fun signUp(email: String, password: String, nickname: String): Flow<Result<SignUpInfo>> {
         return repository.signUp(email, password, nickname)
     }
 }

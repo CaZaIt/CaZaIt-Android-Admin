@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -14,7 +14,6 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import org.bmsk.domain.model.SignInResult
 import org.cazait.presentation.R
 import org.cazait.presentation.databinding.FragmentSignInBinding
 
@@ -23,7 +22,7 @@ class SignInFragment : Fragment() {
     private var _binding: FragmentSignInBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: SignInViewModel by viewModels()
+    private val viewModel: SignInViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,17 +64,14 @@ class SignInFragment : Fragment() {
                     }
                 }
                 launch {
-                    viewModel.signInResult.collect { signInResult ->
+                    viewModel.signInInfoStateFlow.collect { signInResult ->
                         if (signInResult == null) return@collect
-                        when (signInResult) {
-                            is SignInResult.SuccessInfo -> {
-                                navigateToStoreStatusFragment()
-                            }
-
-                            is SignInResult.FailInfo -> {
-                                showMessage(signInResult.message)
-                            }
-                        }
+                        navigateToStoreStatusFragment()
+                    }
+                }
+                launch {
+                    viewModel.guideMessage.collect { message ->
+                        showMessage(message)
                     }
                 }
             }
