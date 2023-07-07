@@ -36,8 +36,6 @@ class SignUpViewModel @Inject constructor(
             val password = passwordText.value
             val nickname = nicknameText.value
 
-            Log.e("SignUpViewModel", "email=${email}, password=${password}")
-
             val signUpResult = userUseCase.signUp(
                 email = email,
                 password = password,
@@ -48,7 +46,6 @@ class SignUpViewModel @Inject constructor(
                 _signUpInfoStateFlow.value = signUpResult.data
             } else if(signUpResult is Result.Fail) {
                 _guideMessage.value = signUpResult.message
-
             }
         }
     }
