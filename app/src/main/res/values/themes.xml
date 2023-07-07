@@ -1,13 +1,4 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.CaZaIt" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/cazait_choco_tablet</item>
-        <!-- Customize your theme here. -->
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
     <style name="Theme.CaZaIt.Splash" parent="Theme.SplashScreen">
         <item name="windowSplashScreenAnimatedIcon">@drawable/ic_cazait_splash</item>
         <item name="postSplashScreenTheme">@style/Theme.CaZaIt</item>

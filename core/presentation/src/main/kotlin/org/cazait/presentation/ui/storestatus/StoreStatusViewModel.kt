@@ -9,4 +9,23 @@ class StoreStatusViewModel @Inject constructor(
 
 ): ViewModel() {
 
+    fun onMenuItem1Click() {
+
+    }
+
+    fun onMenuItem2Click() {
+
+    }
+
+    fun onMenuItem3Click() {
+
+    }
+
+    fun onMenuItem4Click() {
+
+    }
+
+    fun onMenuItem5Click() {
+
+    }
 }

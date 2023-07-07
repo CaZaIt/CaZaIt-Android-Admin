@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.cazait.presentation.R
@@ -19,7 +21,7 @@ import org.cazait.presentation.databinding.FragmentSignUpBinding
 
 @AndroidEntryPoint
 class SignUpFragment : Fragment() {
-    private val viewModel: SignUpViewModel by viewModels()
+    private val viewModel: SignUpViewModel by activityViewModels()
     private var _binding: FragmentSignUpBinding? = null
     private val binding get() = _binding!!
 
@@ -50,9 +52,16 @@ class SignUpFragment : Fragment() {
     private fun observeViewModel() {
         lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.signUpInfoStateFlow.collectLatest {
-                    if(it != null) {
-                        navigateToBackStack()
+                launch {
+                    viewModel.signUpInfoStateFlow.collect {
+                        if (it != null) {
+                            navigateToBackStack()
+                        }
+                    }
+                }
+                launch {
+                    viewModel.guideMessage.collect { message ->
+                        showMessage(message)
                     }
                 }
             }
@@ -61,5 +70,9 @@ class SignUpFragment : Fragment() {
 
     private fun navigateToBackStack() {
         findNavController().popBackStack()
+    }
+
+    private fun showMessage(message: String) {
+        Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT).show()
     }
 }

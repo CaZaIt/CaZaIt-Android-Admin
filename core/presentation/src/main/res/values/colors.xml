@@ -13,4 +13,5 @@
 
     <color name="btn_login">#CCB6AF</color>
     <color name="et_hint">#7D5B51</color>
+    <color name="menu_background">@color/white</color>
 </resources>

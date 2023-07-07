@@ -3,7 +3,9 @@ package org.cazait.data.repository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import org.bmsk.domain.model.SignInResult
+import org.bmsk.domain.ErrorType
+import org.bmsk.domain.Result
+import org.bmsk.domain.model.SignInInfo
 import org.bmsk.domain.model.SignUpInfo
 import org.bmsk.domain.repository.UserRepository
 import org.cazait.datastore.data.repository.UserPreferenceRepository
@@ -25,31 +27,25 @@ class UserRepositoryImpl @Inject constructor(
         email: String,
         password: String,
         nickname: String
-    ): Flow<SignUpInfo> {
-        return flow {
-            when (val response = remoteData.postSignUp(email, password, nickname)) {
-                is DataResponse.Success -> {
-                    response.data?.signUpResult?.let {
-                        emit(it.toSignUpInfo())
-                    }
-                }
-
-                is DataResponse.DataError -> {
-                    emit(SignUpInfo.getEmptyInfo())
-                }
+    ): Flow<Result<SignUpInfo>> {
+        return processRequest(
+            request = { remoteData.postSignUp(email, password, nickname) },
+            onSuccess = { data ->
+                data.signUpResult?.let { Result.Success(it.toSignUpInfo()) }
+                    ?: Result.Fail(data.message)
             }
-        }.flowOn(ioDispatcher)
+        )
     }
 
-    override suspend fun isNicknameDup(nickname: String): Flow<Boolean> {
+    override suspend fun isNicknameDup(nickname: String): Flow<Result<Boolean>> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun isEmailDup(email: String): Flow<Boolean> {
+    override suspend fun isEmailDup(email: String): Flow<Result<Boolean>> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun refreshToken(): Flow<String> {
+    override suspend fun refreshToken(): Flow<Result<String>> {
         TODO("Not yet implemented")
     }
 
@@ -57,33 +53,45 @@ class UserRepositoryImpl @Inject constructor(
         return userPreferenceRepository.getUserPreference()
     }
 
-    override suspend fun signIn(email: String, password: String): Flow<SignInResult> {
+    override suspend fun signIn(email: String, password: String): Flow<Result<SignInInfo>> {
+        return processRequest(
+            request = { remoteData.postSignIn(email, password) },
+            onSuccess = { data ->
+                data.signInResult?.let { resultData ->
+                    userPreferenceRepository.updateUserPreference(
+                        isLoggedIn = true,
+                        id = resultData.id,
+                        email = resultData.email,
+                        role = resultData.role,
+                        accessToken = resultData.accessToken,
+                        refreshToken = resultData.refreshToken,
+                    )
+                    Result.Success(resultData.asDomain())
+                } ?: Result.Fail(data.message)
+            }
+        )
+    }
+
+    private suspend fun <T, R> processRequest(
+        request: suspend () -> DataResponse<T>,
+        onSuccess: suspend (T) -> Result<R>
+    ): Flow<Result<R>> {
         return flow {
-            when (val response = remoteData.postSignIn(email, password)) {
+            when (val response = request()) {
                 is DataResponse.Success -> {
-                    response.data?.let {
-                        it.signInResult?.let { resultData ->
-                            userPreferenceRepository.updateUserPreference(
-                                isLoggedIn = true,
-                                id = resultData.id,
-                                email = resultData.email,
-                                role = resultData.role,
-                                accessToken = resultData.accessToken,
-                                refreshToken = resultData.refreshToken,
-                            )
-                            emit(resultData.asDomain())
-                        } ?: emit(SignInResult.FailInfo(it.message))
-                    } ?: emit(SignInResult.FailInfo("로그인에 실패했습니다."))
+                    response.data?.let { data ->
+                        emit(onSuccess(data))
+                    } ?: emit(Result.Error(ErrorType.NO_DATA_ERROR))
                 }
 
                 is DataResponse.DataError -> {
-                    emit(SignInResult.FailInfo("로그인에 실패했습니다. 네트워크 연결을 확인해주세요."))
+                    emit(Result.Error(ErrorType.NETWORK_CONNECTION_ERROR))
                 }
             }
         }.flowOn(ioDispatcher)
     }
 
-    private fun SignInResultDTO.asDomain() = SignInResult.SuccessInfo(
+    private fun SignInResultDTO.asDomain() = SignInInfo(
         email = email,
         id = id,
         accessToken = accessToken,
