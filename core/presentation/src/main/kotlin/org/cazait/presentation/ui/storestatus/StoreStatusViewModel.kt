@@ -5,7 +5,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import org.bmsk.domain.usecase.StoreUseCase
-import org.bmsk.domain.usecase.UserUseCase
 import org.cazait.presentation.model.StoreState
 import javax.inject.Inject
 
