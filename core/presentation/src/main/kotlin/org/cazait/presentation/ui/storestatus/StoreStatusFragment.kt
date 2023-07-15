@@ -28,21 +28,18 @@ class StoreStatusFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding =
-            DataBindingUtil.inflate(
-                inflater,
-                R.layout.fragment_store_status,
-                container,
-                false)
+        _binding = DataBindingUtil.inflate<FragmentStoreStatusBinding>(
+            inflater,
+            R.layout.fragment_store_status,
+            container,
+            false
+        ).apply {
+            fragment = this@StoreStatusFragment
+        }
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initMenuButton()
-    }
-
-    private fun initMenuButton() {
+    fun showMenu() {
         binding.menuButton.setOnClickListener { sideSheetMenu.show() }
     }
 
