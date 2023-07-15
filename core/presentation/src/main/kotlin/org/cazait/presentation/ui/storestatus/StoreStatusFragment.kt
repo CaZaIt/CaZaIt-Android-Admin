@@ -29,7 +29,11 @@ class StoreStatusFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_store_status, container, false)
+            DataBindingUtil.inflate(
+                inflater,
+                R.layout.fragment_store_status,
+                container,
+                false)
         return binding.root
     }
 

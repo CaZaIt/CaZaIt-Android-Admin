@@ -49,10 +49,10 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="28dp"
             android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/addToPhotosButton"
             app:layout_constraintTop_toBottomOf="@id/titleTextView"
+            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/item_cafe_image" />
 
         <FrameLayout

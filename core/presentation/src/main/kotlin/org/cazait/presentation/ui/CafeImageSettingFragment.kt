@@ -1,5 +1,8 @@
 package org.cazait.presentation.ui
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.View
 import androidx.activity.result.PickVisualMediaRequest
@@ -25,6 +28,17 @@ class CafeImageSettingFragment : BaseFragment<FragmentCafeImageSettingBinding>(
 
         binding.viewModel = viewModel
         binding.fragment = this
+    }
+
+    @SuppressLint("SourceLockedOrientationActivity")
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
     }
 
     private fun setupViewModel() {

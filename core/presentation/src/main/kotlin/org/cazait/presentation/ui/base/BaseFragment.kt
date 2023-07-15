@@ -20,10 +20,14 @@ abstract class BaseFragment<T : ViewDataBinding>(
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding =
-            DataBindingUtil.inflate<T>(inflater, layoutResourceId, container, false).apply {
-                lifecycleOwner = this@BaseFragment.viewLifecycleOwner
-            }
+        _binding = DataBindingUtil.inflate<T>(
+            inflater,
+            layoutResourceId,
+            container,
+            false
+        ).apply {
+            lifecycleOwner = this@BaseFragment.viewLifecycleOwner
+        }
 
         return binding.root
     }
