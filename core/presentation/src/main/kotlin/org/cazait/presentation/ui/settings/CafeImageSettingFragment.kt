@@ -1,4 +1,4 @@
-package org.cazait.presentation.ui
+package org.cazait.presentation.ui.settings
 
 import android.annotation.SuppressLint
 import android.content.Context

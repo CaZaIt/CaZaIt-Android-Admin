@@ -7,11 +7,11 @@
 
         <variable
             name="fragment"
-            type="org.cazait.presentation.ui.CafeImageSettingFragment" />
+            type="org.cazait.presentation.ui.settings.CafeImageSettingFragment" />
 
         <variable
             name="viewModel"
-            type="org.cazait.presentation.ui.ImageSettingViewModel" />
+            type="org.cazait.presentation.ui.settings.ImageSettingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

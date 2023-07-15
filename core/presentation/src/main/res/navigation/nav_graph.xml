@@ -41,7 +41,7 @@
     </fragment>
     <fragment
         android:id="@+id/cafeImageSettingFragment"
-        android:name="org.cazait.presentation.ui.CafeImageSettingFragment"
+        android:name="org.cazait.presentation.ui.settings.CafeImageSettingFragment"
         android:label="CafeImageSettingFragment"
         tools:layout="@layout/fragment_cafe_image_setting" />
 </navigation>

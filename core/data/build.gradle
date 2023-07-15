@@ -37,13 +37,13 @@ dependencies {
     implementation project(":core:network")
     implementation project(":core:domain")
     implementation project(":core:datastore")
-    implementation 'androidx.core:core-ktx:1.10.1'
 
+    implementation("androidx.core:core-ktx:1.10.1")
     // Hilt Library
     implementation("com.google.dagger:hilt-android:$hiltVersion")
     kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
     kapt("androidx.hilt:hilt-compiler:$hiltCompilerVersion")
 
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
 }
