@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="fragment"
+            type="org.cazait.presentation.ui.CafeImageSettingFragment" />
+
+        <variable
+            name="viewModel"
+            type="org.cazait.presentation.ui.ImageSettingViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/titleTextView"
+            style="@style/TextValue_B"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="@string/cafe_image"
+            android:textSize="32sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/addToPhotosButton"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/ic_baseline_add_to_photos_24"
+            android:onClick="@{() -> fragment.startPicker()}"
+            app:layout_constraintBottom_toBottomOf="@id/currentCafeImageRecyclerView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/currentCafeImageRecyclerView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/currentCafeImageRecyclerView"
+            android:layout_width="0dp"
+            android:layout_height="250dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="28dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/addToPhotosButton"
+            app:layout_constraintTop_toBottomOf="@id/titleTextView"
+            tools:listitem="@layout/item_cafe_image" />
+
+        <FrameLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_margin="48dp"
+            android:background="@drawable/rectangle_orange_r10"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/currentCafeImageRecyclerView">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/content_dis_new_store_picture"
+                app:loadImage="@{viewModel.selectedUri}" />
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/resisterButton"
+            style="@style/TextValue_B"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="16dp"
+            android:text="@string/register"
+            android:textSize="32sp"
+            app:layout_constraintEnd_toStartOf="@id/deleteButton"
+            app:layout_constraintTop_toBottomOf="@id/frameLayout" />
+
+        <Button
+            android:id="@+id/deleteButton"
+            style="@style/TextValue_B"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="48dp"
+            android:text="@string/delete"
+            android:textSize="32sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/frameLayout" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -34,6 +34,7 @@
             <ImageView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:contentDescription="@string/user_profile_button"
                 android:minWidth="48dp"
                 android:minHeight="48dp"
                 android:src="@drawable/ic_baseline_account_circle_24"
@@ -55,6 +56,7 @@
                 android:id="@+id/cancelButton"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:contentDescription="@null"
                 android:minWidth="48dp"
                 android:padding="8dp"
                 android:src="@drawable/ic_baseline_clear_24"
@@ -71,22 +73,28 @@
             app:layout_constraintTop_toBottomOf="@id/barLayout">
 
             <Button
-                android:id="@+id/menu_item_1"
+                android:id="@+id/storeMenuSettingButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/change_menu" />
 
             <Button
-                android:id="@+id/menu_item_2"
+                android:id="@+id/storePictureSettingButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/change_store_background" />
 
             <Button
-                android:id="@+id/menu_item_3"
+                android:id="@+id/storeDescriptionSettingButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/change_store_desciption" />
+
+            <Button
+                android:id="@+id/noticeButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/notice" />
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,7 +25,11 @@
         android:id="@+id/storeStatusFragment"
         android:name="org.cazait.presentation.ui.storestatus.StoreStatusFragment"
         android:label="StoreStatusFragment"
-        tools:layout="@layout/fragment_store_status" />
+        tools:layout="@layout/fragment_store_status" >
+        <action
+            android:id="@+id/action_storeStatusFragment_to_cafeImageSettingFragment"
+            app:destination="@id/cafeImageSettingFragment" />
+    </fragment>
     <fragment
         android:id="@+id/signUpFragment"
         android:name="org.cazait.presentation.ui.signup.SignUpFragment"
@@ -35,4 +39,9 @@
             android:id="@+id/action_signUpFragment_to_signInFragment"
             app:destination="@id/signInFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/cafeImageSettingFragment"
+        android:name="org.cazait.presentation.ui.CafeImageSettingFragment"
+        android:label="CafeImageSettingFragment"
+        tools:layout="@layout/fragment_cafe_image_setting" />
 </navigation>

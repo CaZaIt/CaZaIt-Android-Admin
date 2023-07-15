@@ -29,6 +29,12 @@
     <string name="cd_menu_button">메뉴 버튼</string>
     <string name="manage_store">카자잇 매장 관리</string>
     <string name="change_menu">메뉴 변경</string>
-    <string name="change_store_background">가게 사진 추기/변경</string>
+    <string name="change_store_background">가게 사진 추가/변경</string>
     <string name="change_store_desciption">가게 설명 추가/변경</string>
+    <string name="user_profile_button">사용자 프로필 사진 버튼</string>
+    <string name="cafe_image">가게 이미지</string>
+    <string name="content_dis_new_store_picture">새로 등록될 가게 사진</string>
+    <string name="register">등록하기</string>
+    <string name="delete">삭제하기</string>
+    <string name="notice">공지사항</string>
 </resources>

@@ -71,7 +71,8 @@ class SignInFragment : Fragment() {
                 }
                 launch {
                     viewModel.guideMessage.collect { message ->
-                        showMessage(message)
+                        if (message.isNotEmpty())
+                            showMessage(message)
                     }
                 }
             }

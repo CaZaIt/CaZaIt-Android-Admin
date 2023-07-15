@@ -32,6 +32,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/logo" />
 
+        <TextView
+            android:id="@+id/tv_login_head"
+            style="@style/TextValue_B"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="60dp"
+            android:text="@string/login"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/et_login_email"
+            app:layout_constraintTop_toBottomOf="@+id/iv_login_logo" />
+
         <EditText
             android:id="@+id/et_login_email"
             style="@style/LoginEditText"
@@ -83,17 +94,6 @@
             app:layout_constraintStart_toStartOf="@+id/et_login_password"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.3" />
-
-        <TextView
-            android:id="@+id/tv_login_head"
-            style="@style/TextValue_B"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="52dp"
-            android:text="@string/login"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="@id/et_login_email"
-            app:layout_constraintTop_toBottomOf="@+id/iv_login_logo" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_login_sign_up"
