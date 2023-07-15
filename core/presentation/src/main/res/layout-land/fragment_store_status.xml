@@ -14,9 +14,9 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/verticalGuideline07"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -64,17 +64,38 @@
             android:textSize="60sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@id/horizontalGuideline02"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/verticalGuideline07"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/appBarLayout"
             tools:text="롬곡" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/verticalGuideline010"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.10" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/verticalGuideline035"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
+            app:layout_constraintGuide_percent="0.35" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/verticalGuideline060"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.60" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/verticalGuideline07"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.7" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/horizontalGuideline05"
@@ -105,8 +126,9 @@
             android:text="@string/state_free"
             app:layout_constraintBottom_toTopOf="@id/horizontalGuideline05"
             app:layout_constraintEnd_toStartOf="@id/verticalGuideline035"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/horizontalGuideline02" />
+            app:layout_constraintStart_toEndOf="@id/verticalGuideline010"
+            app:layout_constraintTop_toBottomOf="@id/horizontalGuideline02"
+            app:layout_constraintWidth_max="320dp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_cafe_state_normal"
@@ -115,9 +137,10 @@
             android:background="@color/coffee"
             android:text="@string/state_normal"
             app:layout_constraintBottom_toTopOf="@id/horizontalGuideline05"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/verticalGuideline060"
             app:layout_constraintStart_toEndOf="@id/verticalGuideline035"
-            app:layout_constraintTop_toBottomOf="@id/horizontalGuideline02" />
+            app:layout_constraintTop_toBottomOf="@id/horizontalGuideline02"
+            app:layout_constraintWidth_max="320dp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_cafe_state_crowded"
@@ -127,8 +150,9 @@
             android:text="@string/state_crowded"
             app:layout_constraintBottom_toTopOf="@id/horizontalGuideline07"
             app:layout_constraintEnd_toStartOf="@id/verticalGuideline035"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/horizontalGuideline05" />
+            app:layout_constraintStart_toStartOf="@id/verticalGuideline010"
+            app:layout_constraintTop_toBottomOf="@id/horizontalGuideline05"
+            app:layout_constraintWidth_max="320dp" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_cafe_state_very_crowded"
@@ -137,9 +161,10 @@
             android:background="@color/coffee"
             android:text="@string/very_crowded"
             app:layout_constraintBottom_toTopOf="@id/horizontalGuideline07"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/verticalGuideline060"
             app:layout_constraintStart_toEndOf="@id/verticalGuideline035"
             app:layout_constraintTop_toBottomOf="@id/horizontalGuideline05"
+            app:layout_constraintWidth_max="320dp"
             tools:background="@color/choco_tablet" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
