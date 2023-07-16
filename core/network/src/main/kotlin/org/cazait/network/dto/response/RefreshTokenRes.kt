@@ -1,7 +1,6 @@
-package org.cazait.network.model.response
+package org.cazait.network.dto.response
 
 import com.google.gson.annotations.SerializedName
-import org.cazait.network.model.dto.TokenDTO
 
 data class RefreshTokenRes(
     @SerializedName("code")
@@ -11,5 +10,5 @@ data class RefreshTokenRes(
     @SerializedName("message")
     private val message: String,
     @SerializedName("data")
-    private val tokenDTO: TokenDTO
+    private val tokenDTO: org.cazait.network.dto.response.TokenDto
 )

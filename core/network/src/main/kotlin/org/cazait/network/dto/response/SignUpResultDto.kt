@@ -1,8 +1,8 @@
-package org.cazait.network.model.dto
+package org.cazait.network.dto.response
 
 import com.google.gson.annotations.SerializedName
 
-data class SignUpResultDTO(
+data class SignUpResultDto(
     @SerializedName("id")
     val id: String,
     @SerializedName("email")

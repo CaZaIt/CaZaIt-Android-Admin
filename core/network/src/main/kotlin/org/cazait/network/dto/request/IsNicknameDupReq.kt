@@ -1,4 +1,4 @@
-package org.cazait.network.model.request
+package org.cazait.network.dto.request
 
 data class IsNicknameDupReq(
     val nickname: String

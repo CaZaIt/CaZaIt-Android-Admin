@@ -1,6 +1,6 @@
-package org.cazait.network.model.response
+package org.cazait.network.dto.response
 
-data class IsEmailDupRes(
+data class IsNicknameDupRes(
     val code: Int,
     val result: String,
     val message: String,

@@ -1,9 +1,9 @@
 package org.cazait.network.api
 
 import org.bmsk.domain.model.Role
-import org.cazait.network.model.request.SignInReq
-import org.cazait.network.model.response.RefreshTokenRes
-import org.cazait.network.model.response.SignInRes
+import org.cazait.network.dto.request.SignInReq
+import org.cazait.network.dto.response.RefreshTokenRes
+import org.cazait.network.dto.response.SignInRes
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET

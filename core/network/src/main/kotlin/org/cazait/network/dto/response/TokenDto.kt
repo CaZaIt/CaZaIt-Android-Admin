@@ -1,9 +1,9 @@
-package org.cazait.network.model.dto
+package org.cazait.network.dto.response
 
 import com.google.gson.annotations.SerializedName
 import org.bmsk.domain.model.Role
 
-data class TokenDTO(
+data class TokenDto(
     @SerializedName("id")
     private val id: Int,
     @SerializedName("email")

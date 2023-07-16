@@ -1,9 +1,8 @@
-package org.cazait.network.model.response
+package org.cazait.network.dto.response
 
 import com.google.gson.annotations.SerializedName
-import org.cazait.network.model.dto.SignInResultDTO
 
-data class SignInRes(
+data class SignUpRes(
     @SerializedName("code")
     val code: Int,
     @SerializedName("result")
@@ -11,5 +10,5 @@ data class SignInRes(
     @SerializedName("message")
     val message: String,
     @SerializedName("data")
-    val signInResult: SignInResultDTO? = null
+    val signUpResult: org.cazait.network.dto.response.SignUpResultDto? = null
 )

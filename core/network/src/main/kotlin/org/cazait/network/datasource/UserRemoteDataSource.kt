@@ -2,10 +2,10 @@ package org.cazait.network.datasource
 
 import org.bmsk.domain.model.Role
 import org.cazait.network.model.DataResponse
-import org.cazait.network.model.request.IsNicknameDupReq
-import org.cazait.network.model.response.RefreshTokenRes
-import org.cazait.network.model.response.SignInRes
-import org.cazait.network.model.response.SignUpRes
+import org.cazait.network.dto.request.IsNicknameDupReq
+import org.cazait.network.dto.response.RefreshTokenRes
+import org.cazait.network.dto.response.SignInRes
+import org.cazait.network.dto.response.SignUpRes
 
 interface UserRemoteDataSource {
     suspend fun postSignUp(email: String, password: String, nickname: String): DataResponse<SignUpRes>
