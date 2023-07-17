@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import org.bmsk.domain.Result
+import org.bmsk.domain.DomainResult
 import org.bmsk.domain.model.SignInInfo
 import org.bmsk.domain.usecase.UserUseCase
 import org.cazait.model.local.UserPreference
@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SignInViewModel @Inject constructor(
     private val userUseCase: UserUseCase
-): ViewModel() {
+) : ViewModel() {
     private val _userPreference = MutableStateFlow(UserPreference.getDefaultInstance())
     val userPreference = _userPreference.asStateFlow()
 
@@ -40,11 +40,9 @@ class SignInViewModel @Inject constructor(
         Log.d("SignInViewModel", "singin")
         viewModelScope.launch {
             val signInResult = userUseCase.signIn(emailText.value, passwordText.value).first()
-            if (signInResult is Result.Success) {
+            if (signInResult is DomainResult.Success) {
                 _signInInfoStateFlow.value = signInResult.data
-            } else if (signInResult is Result.Fail) {
-                _guideMessage.value = signInResult.message
-            } else if (signInResult is Result.Error) {
+            } else if (signInResult is DomainResult.Error) {
                 // 대응되는 코드 어떻게 할지 고민
             } else {
                 Log.d("SignInViewModel", "뭐가 문제야.")

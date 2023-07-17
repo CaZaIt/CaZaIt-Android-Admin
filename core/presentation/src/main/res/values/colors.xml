@@ -10,6 +10,7 @@
     <color name="base_color_f5">#F5F5F5</color>
     <color name="dark_choco">#8A5F5F</color>
     <color name="free">#5D2424</color>
+    <color name="orange">#FF735B</color>
 
     <color name="btn_login">#CCB6AF</color>
     <color name="et_hint">#7D5B51</color>

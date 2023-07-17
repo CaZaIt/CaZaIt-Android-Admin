@@ -54,7 +54,7 @@ class SignInFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        lifecycleScope.launch {
+        viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     viewModel.userPreference.collect {
@@ -71,7 +71,8 @@ class SignInFragment : Fragment() {
                 }
                 launch {
                     viewModel.guideMessage.collect { message ->
-                        showMessage(message)
+                        if (message.isNotEmpty())
+                            showMessage(message)
                     }
                 }
             }
