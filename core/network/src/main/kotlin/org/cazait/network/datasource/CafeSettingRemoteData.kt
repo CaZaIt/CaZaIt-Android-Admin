@@ -1,8 +1,6 @@
 package org.cazait.network.datasource
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import org.cazait.network.api.AuthService
 import org.cazait.network.api.CafeImageService
 import org.cazait.network.api.CafeMenuService
 import org.cazait.network.api.CafeService
@@ -14,12 +12,10 @@ import org.cazait.network.dto.response.CafeCreateOutDto
 import org.cazait.network.dto.response.CafeMenuDto
 import org.cazait.network.dto.response.CafeUpdateOutDto
 import org.cazait.network.dto.response.CazaitResponse
-import retrofit2.Response
 import java.util.UUID
 import javax.inject.Inject
 
 class CafeSettingRemoteData @Inject constructor(
-    private val authService: AuthService,
     private val cafeImageService: CafeImageService,
     private val cafeMenuService: CafeMenuService,
     private val cafeService: CafeService
@@ -70,22 +66,5 @@ class CafeSettingRemoteData @Inject constructor(
         masterId: UUID, cafeCreateInRequestBody: CafeCreateInRequestBody
     ): Flow<Result<CazaitResponse<CafeCreateOutDto>>> {
         return processCall { cafeService.postResistCafe(masterId, cafeCreateInRequestBody) }
-    }
-
-    private suspend fun <T> processCall(call: suspend () -> Response<CazaitResponse<T>>): Flow<Result<CazaitResponse<T>>> {
-        return flow {
-            try {
-                val response = call()
-
-                val body = response.body()
-                if (response.isSuccessful && body != null) {
-                    emit(Result.success(body))
-                } else {
-                    emit(Result.failure(Exception("Failed to get data")))
-                }
-            } catch (e: Exception) {
-                emit(Result.failure(e))
-            }
-        }
     }
 }

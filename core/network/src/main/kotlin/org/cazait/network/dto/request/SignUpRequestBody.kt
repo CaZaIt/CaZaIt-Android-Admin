@@ -2,7 +2,7 @@ package org.cazait.network.dto.request
 
 import com.google.gson.annotations.SerializedName
 
-data class SignUpReq(
+data class SignUpRequestBody(
     @SerializedName("email")
     val email: String,
     @SerializedName("password")

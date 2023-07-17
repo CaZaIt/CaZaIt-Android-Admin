@@ -1,7 +1,5 @@
 package org.cazait.presentation.ui.signup
 
-import android.util.Log
-import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -9,7 +7,9 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import org.bmsk.domain.Result
+import org.bmsk.domain.DomainResult
+import org.bmsk.domain.exception.DomainError
+import org.bmsk.domain.exception.ErrorType
 import org.bmsk.domain.model.SignUpInfo
 import org.bmsk.domain.usecase.UserUseCase
 import javax.inject.Inject
@@ -30,22 +30,41 @@ class SignUpViewModel @Inject constructor(
     private val _guideMessage = MutableStateFlow("")
     val guideMessage = _guideMessage.asStateFlow()
 
+    private val _guideMessageResId = MutableStateFlow<Int?>(null)
+    val guideMessageResId = _guideMessageResId.asStateFlow()
+
     fun signUp() {
         viewModelScope.launch {
-            val email = emailText.value
-            val password = passwordText.value
-            val nickname = nicknameText.value
-
             val signUpResult = userUseCase.signUp(
-                email = email,
-                password = password,
-                nickname = nickname
+                email = emailText.value,
+                password = passwordText.value,
+                nickname = nicknameText.value
             ).first()
 
-            if(signUpResult is Result.Success) {
-                _signUpInfoStateFlow.value = signUpResult.data
-            } else if(signUpResult is Result.Fail) {
-                _guideMessage.value = signUpResult.message
+            when (signUpResult) {
+                is DomainResult.Success -> {
+                    _signUpInfoStateFlow.value = signUpResult.data
+                }
+
+                is DomainResult.Error -> {
+                    handleDomainError(signUpResult.error)
+                }
+
+                is DomainResult.Loading -> {}
+            }
+        }
+    }
+
+    private fun handleDomainError(error: DomainError) {
+        when (error) {
+            is DomainError.InvalidInputError -> {
+                error.serverDescription?.let { _guideMessage.value = it } ?: run {
+                    _guideMessageResId.value = error.messageResId
+                }
+            }
+
+            else -> {
+                _guideMessageResId.value = error.messageResId
             }
         }
     }
