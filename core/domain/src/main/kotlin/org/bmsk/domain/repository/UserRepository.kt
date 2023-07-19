@@ -8,10 +8,12 @@ import org.cazait.model.local.UserPreference
 
 interface UserRepository {
     suspend fun getCurrentUser(): Flow<UserPreference>
-    suspend fun signIn(email: String, password: String): Flow<DomainResult<SignInInfo>>
-    suspend fun signUp(email: String, password: String, nickname: String): Flow<DomainResult<SignUpInfo>>
+    suspend fun signIn(loginId: String, password: String): Flow<DomainResult<SignInInfo>>
+    suspend fun signUp(loginId: String, password: String, nickname: String): Flow<DomainResult<SignUpInfo>>
     suspend fun refreshToken(): Flow<DomainResult<String>>
 
     suspend fun isNicknameDup(nickname: String): Flow<DomainResult<Boolean>>
     suspend fun isEmailDup(email: String): Flow<DomainResult<Boolean>>
+
+    suspend fun saveSignInInfo(signInInfo: SignInInfo)
 }

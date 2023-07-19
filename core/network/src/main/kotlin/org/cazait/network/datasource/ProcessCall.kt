@@ -7,7 +7,7 @@ import retrofit2.Response
 
 suspend fun <T> processCall(call: suspend () -> Response<CazaitResponse<T>>): Flow<Result<CazaitResponse<T>>> {
     return flow {
-        try {
+        kotlin.runCatching {
             val response = call()
 
             val body = response.body()
@@ -17,8 +17,6 @@ suspend fun <T> processCall(call: suspend () -> Response<CazaitResponse<T>>): Fl
                 val errorMessage = response.errorBody()?.string() ?: "Unknown Error"
                 emit(Result.failure(Exception(errorMessage)))
             }
-        } catch (e: Exception) {
-            emit(Result.failure(e))
         }
     }
 }

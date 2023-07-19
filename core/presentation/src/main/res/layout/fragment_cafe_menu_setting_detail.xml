@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="16dp">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/verticalGuideLine05"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/horizontalGuideLine025"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/horizontalGuideLine05"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <TextView
+            android:id="@+id/menuNameTextView"
+            style="@style/TextValue_B"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="32sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="메뉴명: 아메리카노" />
+
+        <ImageView
+            android:id="@+id/menuImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:contentDescription="@string/content_description_menu_image"
+            android:padding="16dp"
+            app:layout_constraintBottom_toTopOf="@id/horizontalGuideLine025"
+            app:layout_constraintEnd_toStartOf="@id/verticalGuideLine05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/menuNameTextView"
+            tools:src="@drawable/ic_baseline_add_to_photos_24" />
+
+        <TextView
+            android:id="@+id/descriptionTextView"
+            style="@style/TextValue_B"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toStartOf="@id/verticalGuideLine05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/horizontalGuideLine025"
+            tools:text="메뉴 설명: " />
+
+        <TextView
+            android:id="@+id/priceTextView"
+            style="@style/TextValue_B"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="28sp"
+            app:layout_constraintEnd_toStartOf="@id/verticalGuideLine05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/horizontalGuideLine05"
+            tools:text="가격: 5000원" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/menuDescriptionTextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/verticalGuideLine05"
+            app:layout_constraintTop_toTopOf="@id/descriptionTextView">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/menuDescriptionTextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/menu_description_change_hint"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:maxLength="30" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/menuPriceTextInoutLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/verticalGuideLine05"
+            app:layout_constraintTop_toBottomOf="@id/horizontalGuideLine05">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/menuPriceTextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/menu_price_hint"
+                android:imeOptions="actionDone"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/submit_menu_setting_change_button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

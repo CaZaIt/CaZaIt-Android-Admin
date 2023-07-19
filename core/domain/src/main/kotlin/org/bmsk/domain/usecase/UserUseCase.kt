@@ -15,11 +15,15 @@ class UserUseCase @Inject constructor(
         return repository.getCurrentUser()
     }
 
-    suspend fun signIn(email: String, password: String): Flow<DomainResult<SignInInfo>> {
-        return repository.signIn(email, password)
+    suspend fun signIn(loginId: String, password: String): Flow<DomainResult<SignInInfo>> {
+        return repository.signIn(loginId, password)
     }
 
-    suspend fun signUp(email: String, password: String, nickname: String): Flow<DomainResult<SignUpInfo>> {
-        return repository.signUp(email, password, nickname)
+    suspend fun signUp(loginId: String, password: String, nickname: String): Flow<DomainResult<SignUpInfo>> {
+        return repository.signUp(loginId, password, nickname)
+    }
+
+    suspend fun saveUserSignInformation(signInInfo: SignInInfo) {
+        repository.saveSignInInfo(signInInfo)
     }
 }
