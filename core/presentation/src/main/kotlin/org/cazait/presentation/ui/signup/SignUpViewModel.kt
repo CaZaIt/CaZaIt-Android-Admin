@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.bmsk.domain.DomainResult
 import org.bmsk.domain.exception.DomainError
-import org.bmsk.domain.exception.ErrorType
 import org.bmsk.domain.model.SignUpInfo
 import org.bmsk.domain.usecase.UserUseCase
 import javax.inject.Inject
@@ -36,7 +35,7 @@ class SignUpViewModel @Inject constructor(
     fun signUp() {
         viewModelScope.launch {
             val signUpResult = userUseCase.signUp(
-                email = emailText.value,
+                loginId = emailText.value,
                 password = passwordText.value,
                 nickname = nicknameText.value
             ).first()

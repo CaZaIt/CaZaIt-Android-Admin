@@ -37,4 +37,9 @@
     <string name="register">등록하기</string>
     <string name="delete">삭제하기</string>
     <string name="notice">공지사항</string>
+    <string name="cafe_menu">카페 메뉴</string>
+    <string name="content_description_menu_image">메뉴 이미지</string>
+    <string name="menu_price_hint">변경 이후 가격</string>
+    <string name="submit_menu_setting_change_button">변경 요청</string>
+    <string name="menu_description_change_hint">변경 이후 메뉴에 대한 설명. 30자 이내 작성</string>
 </resources>

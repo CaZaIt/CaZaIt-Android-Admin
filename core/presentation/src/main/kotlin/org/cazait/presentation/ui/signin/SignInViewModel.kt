@@ -42,6 +42,7 @@ class SignInViewModel @Inject constructor(
             val signInResult = userUseCase.signIn(emailText.value, passwordText.value).first()
             if (signInResult is DomainResult.Success) {
                 _signInInfoStateFlow.value = signInResult.data
+                userUseCase.saveUserSignInformation(signInResult.data)
             } else if (signInResult is DomainResult.Error) {
                 // 대응되는 코드 어떻게 할지 고민
             } else {

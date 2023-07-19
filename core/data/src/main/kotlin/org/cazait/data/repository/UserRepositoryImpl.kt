@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import org.bmsk.domain.DomainResult
 import org.bmsk.domain.exception.DomainError
+import org.bmsk.domain.model.Role
 import org.bmsk.domain.model.SignInInfo
 import org.bmsk.domain.model.SignUpInfo
 import org.bmsk.domain.repository.UserRepository
@@ -28,12 +29,12 @@ class UserRepositoryImpl @Inject constructor(
 ) : UserRepository {
 
     override suspend fun signUp(
-        email: String,
+        loginId: String,
         password: String,
         nickname: String
     ): Flow<DomainResult<SignUpInfo>> {
         return safeApiCallWithData(
-            call = { userRemoteData.postSignUp(SignUpRequestBody(email, password, nickname)) },
+            call = { userRemoteData.postSignUp(SignUpRequestBody(loginId, password, nickname)) },
             asDomain = { dto -> dto.asDomain() }
         )
     }
@@ -46,6 +47,17 @@ class UserRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
+    override suspend fun saveSignInInfo(signInInfo: SignInInfo) {
+        userPreferenceRepository.updateUserPreference(
+            true,
+            id = signInInfo.id.toString(),
+            loginId = signInInfo.loginId,
+            role = Role.MASTER.value,
+            accessToken = signInInfo.accessToken,
+            refreshToken = signInInfo.refreshToken,
+        )
+    }
+
     override suspend fun refreshToken(): Flow<DomainResult<String>> {
         TODO("Not yet implemented")
     }
@@ -54,9 +66,9 @@ class UserRepositoryImpl @Inject constructor(
         return userPreferenceRepository.getUserPreference()
     }
 
-    override suspend fun signIn(email: String, password: String): Flow<DomainResult<SignInInfo>> {
+    override suspend fun signIn(loginId: String, password: String): Flow<DomainResult<SignInInfo>> {
         return safeApiCallWithData(
-            call = { userRemoteData.postSignIn(SignInRequestBody(email, password)) },
+            call = { userRemoteData.postSignIn(SignInRequestBody(loginId, password)) },
             asDomain = { dto -> dto.asDomain() }
         )
     }
@@ -83,10 +95,10 @@ class UserRepositoryImpl @Inject constructor(
         }.flowOn(ioDispatcher)
     }
 
-    private fun SignUpResultDto.asDomain() = SignUpInfo(id, email, nickname)
+    private fun SignUpResultDto.asDomain() = SignUpInfo(id, loginId, nickname)
     private fun SignInResultDto.asDomain() = SignInInfo(
-        email = email,
         id = id,
+        loginId = loginId,
         accessToken = accessToken,
         refreshToken = refreshToken,
         role = role,

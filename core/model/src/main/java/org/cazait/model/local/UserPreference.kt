@@ -7,18 +7,18 @@ import java.util.UUID
 data class UserPreference(
     val isLoggedIn: Boolean,
     val id: String,
-    val email: String,
+    val loginId: String,
     val role: String,
     val accessToken: String,
     val refreshToken: String,
 ) {
-    val uuid get() = UUID.fromString(id)
+    val uuid: UUID get() = UUID.fromString(id)
 
     companion object {
         fun getDefaultInstance() = UserPreference(
             isLoggedIn = false,
             id = "",
-            email = "",
+            loginId = "",
             role = "",
             accessToken = "",
             refreshToken = "",

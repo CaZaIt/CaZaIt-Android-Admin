@@ -111,18 +111,20 @@ class StoreRepositoryImpl @Inject constructor(
         call: suspend () -> Flow<Result<CazaitResponse<*>>>
     ): Flow<DomainResult<String>> {
         return flow<DomainResult<String>> {
-            call().first().onFailure { exception ->
-                when (exception) {
-                    is IOException -> emit(DomainResult.Error(DomainError.NetworkError(null)))
-                    else -> emit(DomainResult.Error(DomainError.UnKnownError(null)))
+            call().first()
+                .onFailure { exception ->
+                    when (exception) {
+                        is IOException -> emit(DomainResult.Error(DomainError.NetworkError(null)))
+                        else -> emit(DomainResult.Error(DomainError.UnKnownError(null)))
+                    }
                 }
-            }.onSuccess {
-                if (it.data == null) {
-                    emit(DomainResult.Error(DomainError.InvalidInputError(it.message)))
-                } else {
-                    emit(DomainResult.Success(it.message))
+                .onSuccess {
+                    if (it.data == null) {
+                        emit(DomainResult.Error(DomainError.InvalidInputError(it.message)))
+                    } else {
+                        emit(DomainResult.Success(it.message))
+                    }
                 }
-            }
 
         }.flowOn(ioDispatcher)
     }
