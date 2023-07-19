@@ -42,4 +42,14 @@
     <string name="menu_price_hint">변경 이후 가격</string>
     <string name="submit_menu_setting_change_button">변경 요청</string>
     <string name="menu_description_change_hint">변경 이후 메뉴에 대한 설명. 30자 이내 작성</string>
+
+    <string name="cafe_address_fix">카페 주소 변경</string>
+    <string name="hint_cafe_address_fix">변경된 카페 주소를 적어주세요!!</string>
+    <string name="apply_fix_button">적용하기</string>
+
+    <string name="cafe_notice">공지사항 작성</string>
+    <string name="hint_cafe_notice_title"> 제목을 적어주세요</string>
+    <string name="hint_cafe_notice_content"> 내용을 적어주세요</string>
+    <string name="apply_notice_button">작성 완료</string>
+
 </resources>
