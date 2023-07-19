@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -84,8 +85,14 @@ class SignInFragment : Fragment() {
     }
 
     private fun navigateToStoreStatusFragment() {
-        findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToStoreStatusFragment())
-    }
+        findNavController().navigate(
+            SignInFragmentDirections.actionSignInFragmentToStoreStatusFragment(),
+            NavOptions.Builder()
+                .setPopUpTo(
+                    R.id.signInFragment,
+                    true // Inclusive: true if signInFragment should be removed, false otherwise.
+                ).build()
+        )    }
 
     fun navigateToSignUpFragment() {
         findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment())
