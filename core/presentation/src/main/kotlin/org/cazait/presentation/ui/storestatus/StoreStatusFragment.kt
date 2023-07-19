@@ -70,11 +70,28 @@ class StoreStatusFragment : Fragment() {
         storePictureSettingButton.setOnClickListener {
             sideSheetMenu.cancel()
             navigateToCafeImageSettingFragment()
+
+        }
+        storeDescriptionSettingButton.setOnClickListener {
+            sideSheetMenu.cancel()
+            navigateToCafeAnnouncementFragment()
+
+        }
+        noticeButton.setOnClickListener {
+            sideSheetMenu.cancel()
+            navigateToCafeDescriptionFragment()
+
         }
     }
 
     private fun navigateToCafeImageSettingFragment() {
         findNavController().navigate(StoreStatusFragmentDirections.actionStoreStatusFragmentToCafeImageSettingFragment())
+    }
+    private fun navigateToCafeAnnouncementFragment() {
+        findNavController().navigate(StoreStatusFragmentDirections.actionStoreStatusFragmentToCafeAnnouncementFragment())
+    }
+    private fun navigateToCafeDescriptionFragment() {
+        findNavController().navigate(StoreStatusFragmentDirections.actionStoreStatusFragmentToCafeDescriptionFragment())
     }
 
     override fun onDestroyView() {
