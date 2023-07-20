@@ -60,14 +60,14 @@ class SignInFragment : Fragment() {
                 launch {
                     viewModel.userPreference.collect {
                         if (it.isLoggedIn) {
-                            navigateToStoreStatusFragment()
+                            navigateToStoreManagedStoresFragment()
                         }
                     }
                 }
                 launch {
                     viewModel.signInInfoStateFlow.collect { signInResult ->
                         if (signInResult == null) return@collect
-                        navigateToStoreStatusFragment()
+                        navigateToStoreManagedStoresFragment()
                     }
                 }
                 launch {
@@ -84,9 +84,9 @@ class SignInFragment : Fragment() {
         Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT).show()
     }
 
-    private fun navigateToStoreStatusFragment() {
+    private fun navigateToStoreManagedStoresFragment() {
         findNavController().navigate(
-            SignInFragmentDirections.actionSignInFragmentToStoreStatusFragment(),
+            SignInFragmentDirections.actionSignInFragmentToManagedStoresFragment(),
             NavOptions.Builder()
                 .setPopUpTo(
                     R.id.signInFragment,

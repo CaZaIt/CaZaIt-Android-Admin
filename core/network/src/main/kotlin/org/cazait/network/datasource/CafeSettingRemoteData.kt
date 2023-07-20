@@ -12,6 +12,7 @@ import org.cazait.network.dto.response.CafeCreateOutDto
 import org.cazait.network.dto.response.CafeMenuDto
 import org.cazait.network.dto.response.CafeUpdateOutDto
 import org.cazait.network.dto.response.CazaitResponse
+import org.cazait.network.dto.response.ManagedCafeListOutDto
 import java.util.UUID
 import javax.inject.Inject
 
@@ -66,5 +67,9 @@ class CafeSettingRemoteData @Inject constructor(
         masterId: UUID, cafeCreateInRequestBody: CafeCreateInRequestBody
     ): Flow<Result<CazaitResponse<CafeCreateOutDto>>> {
         return processCall { cafeService.postResistCafe(masterId, cafeCreateInRequestBody) }
+    }
+
+    override suspend fun getManagedCafeList(masterId: UUID): Flow<Result<CazaitResponse<List<ManagedCafeListOutDto>>>> {
+        return processCall { cafeService.getManagedCafeList(masterId) }
     }
 }

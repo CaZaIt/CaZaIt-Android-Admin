@@ -46,24 +46,9 @@ class SignUpViewModel @Inject constructor(
                 }
 
                 is DomainResult.Error -> {
-                    handleDomainError(signUpResult.error)
                 }
 
                 is DomainResult.Loading -> {}
-            }
-        }
-    }
-
-    private fun handleDomainError(error: DomainError) {
-        when (error) {
-            is DomainError.InvalidInputError -> {
-                error.serverDescription?.let { _guideMessage.value = it } ?: run {
-                    _guideMessageResId.value = error.messageResId
-                }
-            }
-
-            else -> {
-                _guideMessageResId.value = error.messageResId
             }
         }
     }

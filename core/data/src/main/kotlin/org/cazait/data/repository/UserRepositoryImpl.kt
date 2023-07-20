@@ -1,31 +1,25 @@
 package org.cazait.data.repository
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import org.bmsk.domain.DomainResult
-import org.bmsk.domain.exception.DomainError
 import org.bmsk.domain.model.Role
 import org.bmsk.domain.model.SignInInfo
 import org.bmsk.domain.model.SignUpInfo
 import org.bmsk.domain.repository.UserRepository
+import org.cazait.data.caller.ApiCaller
 import org.cazait.datastore.data.repository.UserPreferenceRepository
 import org.cazait.model.local.UserPreference
 import org.cazait.network.datasource.UserRemoteData
 import org.cazait.network.dto.request.SignInRequestBody
 import org.cazait.network.dto.request.SignUpRequestBody
-import org.cazait.network.dto.response.CazaitResponse
 import org.cazait.network.dto.response.SignInResultDto
 import org.cazait.network.dto.response.SignUpResultDto
-import java.io.IOException
 import javax.inject.Inject
-import kotlin.coroutines.CoroutineContext
 
 class UserRepositoryImpl @Inject constructor(
     private val userRemoteData: UserRemoteData,
     private val userPreferenceRepository: UserPreferenceRepository,
-    private val ioDispatcher: CoroutineContext,
+    private val apiCaller: ApiCaller
 ) : UserRepository {
 
     override suspend fun signUp(
@@ -33,7 +27,7 @@ class UserRepositoryImpl @Inject constructor(
         password: String,
         nickname: String
     ): Flow<DomainResult<SignUpInfo>> {
-        return safeApiCallWithData(
+        return apiCaller.safeApiCallWithData(
             call = { userRemoteData.postSignUp(SignUpRequestBody(loginId, password, nickname)) },
             asDomain = { dto -> dto.asDomain() }
         )
@@ -67,32 +61,10 @@ class UserRepositoryImpl @Inject constructor(
     }
 
     override suspend fun signIn(loginId: String, password: String): Flow<DomainResult<SignInInfo>> {
-        return safeApiCallWithData(
+        return apiCaller.safeApiCallWithData(
             call = { userRemoteData.postSignIn(SignInRequestBody(loginId, password)) },
             asDomain = { dto -> dto.asDomain() }
         )
-    }
-
-    private suspend fun <T, R> safeApiCallWithData(
-        call: suspend () -> Flow<Result<CazaitResponse<T>>>,
-        asDomain: (T) -> R
-    ): Flow<DomainResult<R>> {
-        return flow<DomainResult<R>> {
-            call().first().onFailure { exception ->
-                when (exception) {
-                    is IOException -> emit(DomainResult.Error(DomainError.NetworkError(null)))
-                    else -> emit(DomainResult.Error(DomainError.UnKnownError(null)))
-                }
-            }.onSuccess {
-                val data = it.data
-                if (data == null) {
-                    emit(DomainResult.Error(DomainError.InvalidInputError(it.message)))
-                } else {
-                    emit(DomainResult.Success(asDomain(data)))
-                }
-            }
-
-        }.flowOn(ioDispatcher)
     }
 
     private fun SignUpResultDto.asDomain() = SignUpInfo(id, loginId, nickname)

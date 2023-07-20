@@ -20,9 +20,13 @@ class StoreUseCase @Inject constructor(
 
     suspend fun updateCafeMenu(
         menuId: Long,
-        name: String?,
-
-        ) {
-
+        name: String,
+        description: String,
+        price: Int,
+        imageUrl: String
+    ): Flow<DomainResult<String>> {
+        return storeRepository.updateCafeMenu(menuId, name, description, price, imageUrl)
     }
+
+    suspend fun getManagedCafes() = storeRepository.getManagedCafeList()
 }

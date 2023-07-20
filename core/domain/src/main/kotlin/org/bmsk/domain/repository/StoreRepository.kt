@@ -3,6 +3,7 @@ package org.bmsk.domain.repository
 import kotlinx.coroutines.flow.Flow
 import org.bmsk.domain.DomainResult
 import org.bmsk.domain.model.CongestionStatus
+import org.bmsk.domain.model.ManagedCafe
 
 interface StoreRepository {
     /** cafe image */
@@ -50,4 +51,7 @@ interface StoreRepository {
         cafeId: Long,
         congestionStatus: CongestionStatus
     ): Flow<DomainResult<String>>
+
+    /** about managed cafes */
+    suspend fun getManagedCafeList(): Flow<DomainResult<List<ManagedCafe>>>
 }

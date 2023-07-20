@@ -2,12 +2,13 @@ package org.cazait.data.repository
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import org.bmsk.domain.DomainResult
-import org.bmsk.domain.exception.DomainError
+import org.bmsk.domain.exception.ErrorType
+import org.bmsk.domain.model.CafeImage
 import org.bmsk.domain.model.CongestionStatus
+import org.bmsk.domain.model.ManagedCafe
 import org.bmsk.domain.repository.StoreRepository
+import org.cazait.data.caller.ApiCaller
 import org.cazait.datastore.data.repository.UserPreferenceRepository
 import org.cazait.model.local.UserPreference
 import org.cazait.network.datasource.CafeCongestionRemoteData
@@ -17,21 +18,20 @@ import org.cazait.network.dto.request.CafeImageCreateInRequestBody
 import org.cazait.network.dto.request.CongestionRequestBody
 import org.cazait.network.dto.request.PatchCafeMenuRequestBody
 import org.cazait.network.dto.request.PostCafeMenuRequestBody
-import org.cazait.network.dto.response.CazaitResponse
-import java.io.IOException
+import org.cazait.network.dto.response.ImageInformationDto
+import org.cazait.network.dto.response.ManagedCafeListOutDto
 import java.util.UUID
 import javax.inject.Inject
-import kotlin.coroutines.CoroutineContext
 
 class StoreRepositoryImpl @Inject constructor(
     private val userPreferenceRepository: UserPreferenceRepository,
     private val cafeSettingRemoteData: CafeSettingRemoteData,
     private val cafeCongestionRemoteData: CafeCongestionRemoteData,
-    private val ioDispatcher: CoroutineContext
+    private val apiCaller: ApiCaller
 ) : StoreRepository {
     override suspend fun addCafeBackgroundImage(
         cafeId: Long, imageUrl: List<String>
-    ) = safeApiCall {
+    ) = apiCaller.safeApiCall {
         cafeSettingRemoteData.postCafeImageUrl(
             CafeImageCreateInRequestBody(
                 cafeId, imageUrl
@@ -39,14 +39,14 @@ class StoreRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun deleteCafeBackgroundImage(cafeImageId: Long) = safeApiCall {
+    override suspend fun deleteCafeBackgroundImage(cafeImageId: Long) = apiCaller.safeApiCall {
         val user = getUserPreferenceOrDefault()
         cafeSettingRemoteData.deleteCafeImage(cafeImageId, UUID.fromString(user.id))
     }
 
     override suspend fun addCafeMenu(
         cafeId: Long, name: String, description: String, price: Int, imageUrl: String
-    ) = safeApiCall {
+    ) = apiCaller.safeApiCall {
         cafeSettingRemoteData.postCafeMenu(
             cafeId, PostCafeMenuRequestBody(
                 cafeId, name, description, price, imageUrl
@@ -57,7 +57,7 @@ class StoreRepositoryImpl @Inject constructor(
 
     override suspend fun updateCafeMenu(
         menuId: Long, name: String?, description: String?, price: Int, imageUrl: String
-    ) = safeApiCall {
+    ) = apiCaller.safeApiCall {
         cafeSettingRemoteData.patchCafeMenu(
             menuId, PatchCafeMenuRequestBody(menuId, name, description, price, imageUrl)
         )
@@ -65,18 +65,18 @@ class StoreRepositoryImpl @Inject constructor(
 
 
     override suspend fun deleteCafeMenu(menuId: Long) =
-        safeApiCall { cafeSettingRemoteData.deleteCafeMenu(menuId) }
+        apiCaller.safeApiCall { cafeSettingRemoteData.deleteCafeMenu(menuId) }
 
     override suspend fun updateCafeDescription(
         cafeId: Long, cafeName: String, address: String
-    ) = safeApiCall {
+    ) = apiCaller.safeApiCall {
         val user = getUserPreferenceOrDefault()
         cafeSettingRemoteData.postCafeInformation(
             cafeId, user.uuid, CafeCreateInRequestBody(user.uuid, cafeName, address)
         )
     }
 
-    override suspend fun updateCafeActivation(cafeId: Long) = safeApiCall {
+    override suspend fun updateCafeActivation(cafeId: Long) = apiCaller.safeApiCall {
         val user = getUserPreferenceOrDefault()
         cafeSettingRemoteData.postCafeActivation(cafeId, user.uuid)
     }
@@ -86,7 +86,12 @@ class StoreRepositoryImpl @Inject constructor(
         val user = getUserPreferenceOrDefault()
         val requestBody = CafeCreateInRequestBody(user.uuid, name, address)
 
-        return safeApiCall { cafeSettingRemoteData.postResistCafe(user.uuid, requestBody) }
+        return apiCaller.safeApiCall {
+            cafeSettingRemoteData.postResistCafe(
+                user.uuid,
+                requestBody
+            )
+        }
     }
 
     override suspend fun updateCafeCongestionStatus(
@@ -95,11 +100,21 @@ class StoreRepositoryImpl @Inject constructor(
         val user = getUserPreferenceOrDefault()
         val requestBody = CongestionRequestBody(congestionStatus)
 
-        return safeApiCall {
+        return apiCaller.safeApiCall {
             cafeCongestionRemoteData.postCafeCongestion(
                 user.uuid, cafeId, requestBody
             )
         }
+    }
+
+    override suspend fun getManagedCafeList(): Flow<DomainResult<List<ManagedCafe>>> {
+        val user = getUserPreferenceOrDefault()
+        return apiCaller.safeApiCallWithData(
+            call = { cafeSettingRemoteData.getManagedCafeList(user.uuid) },
+            asDomain = { dto -> dto.asDomain() },
+            onNullDataError = ErrorType.NOT_FOUND,
+            needServerDescription = true
+        )
     }
 
     private suspend fun getUserPreferenceOrDefault() =
@@ -107,25 +122,17 @@ class StoreRepositoryImpl @Inject constructor(
             UserPreference.getDefaultInstance()
         )
 
-    private suspend fun safeApiCall(
-        call: suspend () -> Flow<Result<CazaitResponse<*>>>
-    ): Flow<DomainResult<String>> {
-        return flow<DomainResult<String>> {
-            call().first()
-                .onFailure { exception ->
-                    when (exception) {
-                        is IOException -> emit(DomainResult.Error(DomainError.NetworkError(null)))
-                        else -> emit(DomainResult.Error(DomainError.UnKnownError(null)))
-                    }
-                }
-                .onSuccess {
-                    if (it.data == null) {
-                        emit(DomainResult.Error(DomainError.InvalidInputError(it.message)))
-                    } else {
-                        emit(DomainResult.Success(it.message))
-                    }
-                }
+    private fun List<ManagedCafeListOutDto>.asDomain() = map { it.asDomain() }
 
-        }.flowOn(ioDispatcher)
-    }
+    private fun ManagedCafeListOutDto.asDomain() = ManagedCafe(
+        cafeId = cafeId,
+        name = name,
+        address = address,
+        cafeImages = cafeImages.map { it.asDomain() }
+    )
+
+    private fun ImageInformationDto.asDomain() = CafeImage(
+        imageId = imageId,
+        url = url
+    )
 }

@@ -56,7 +56,7 @@
 
 
         <TextView
-            android:id="@+id/tv_cafe_state"
+            android:id="@+id/tv_cafe_name"
             style="@style/TextValue_B"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

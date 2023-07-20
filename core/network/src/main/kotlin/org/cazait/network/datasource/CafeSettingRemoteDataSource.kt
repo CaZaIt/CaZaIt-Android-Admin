@@ -9,6 +9,7 @@ import org.cazait.network.dto.response.CafeCreateOutDto
 import org.cazait.network.dto.response.CafeMenuDto
 import org.cazait.network.dto.response.CafeUpdateOutDto
 import org.cazait.network.dto.response.CazaitResponse
+import org.cazait.network.dto.response.ManagedCafeListOutDto
 import java.util.UUID
 
 interface CafeSettingRemoteDataSource {
@@ -53,4 +54,9 @@ interface CafeSettingRemoteDataSource {
         masterId: UUID,
         cafeCreateInRequestBody: CafeCreateInRequestBody
     ): Flow<Result<CazaitResponse<CafeCreateOutDto>>>
+
+    /** managed cafes */
+    suspend fun getManagedCafeList(
+        masterId: UUID
+    ): Flow<Result<CazaitResponse<List<ManagedCafeListOutDto>>>>
 }
