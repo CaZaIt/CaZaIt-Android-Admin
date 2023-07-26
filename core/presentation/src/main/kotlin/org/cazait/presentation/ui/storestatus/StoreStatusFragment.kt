@@ -19,10 +19,12 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.bmsk.domain.exception.DomainError
 import org.bmsk.domain.exception.ErrorType
+import org.bmsk.domain.exception.UnauthorizedException
 import org.bmsk.domain.model.ManagedCafe
 import org.cazait.presentation.R
 import org.cazait.presentation.databinding.FragmentStoreStatusBinding
 import org.cazait.presentation.databinding.LayoutSideSheetBinding
+import java.io.IOException
 
 @AndroidEntryPoint
 class StoreStatusFragment : Fragment() {
@@ -115,13 +117,11 @@ class StoreStatusFragment : Fragment() {
         findNavController().navigate(StoreStatusFragmentDirections.actionStoreStatusFragmentToCafeMenuSettingFragment())
     }
 
-    private fun handleError(error: DomainError) {
-        val message = error.serverDescription ?: when (error.errorType) {
-            ErrorType.NOT_FOUND -> getString(R.string.network_error_occurred)
-            ErrorType.AUTHORIZATION_ERROR -> getString(R.string.authorization_error_occurred)
-            ErrorType.INVALID_INPUT_ERROR -> getString(R.string.invalid_input_error)
-            ErrorType.NETWORK_ERROR -> getString(R.string.network_error_occurred)
-            ErrorType.UNKNOWN_ERROR -> getString(R.string.unknown_error_occured)
+    private fun handleError(exception: Exception) {
+        val message = when (exception) {
+            is IOException -> getString(R.string.network_error_occurred)
+            is UnauthorizedException -> getString(R.string.authorization_error_occurred)
+            else -> ""
         }
         showToast(message)
     }

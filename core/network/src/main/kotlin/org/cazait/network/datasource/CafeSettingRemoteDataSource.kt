@@ -16,47 +16,47 @@ interface CafeSettingRemoteDataSource {
     /** image */
     suspend fun postCafeImageUrl(
         cafeImageCreateInRequestBody: CafeImageCreateInRequestBody
-    ): Flow<Result<CazaitResponse<String>>>
+    ): Flow<Result<String>>
 
     suspend fun deleteCafeImage(
         cafeImageId: Long,
         masterId: UUID
-    ): Flow<Result<CazaitResponse<String>>>
+    ): Flow<Result<String>>
 
     /** menu */
     suspend fun postCafeMenu(
         cafeId: Long,
         postCafeMenuRequestBody: PostCafeMenuRequestBody
-    ): Flow<Result<CazaitResponse<CafeMenuDto>>>
+    ): Flow<Result<CafeMenuDto>>
 
     suspend fun deleteCafeMenu(
         menuId: Long
-    ): Flow<Result<CazaitResponse<String>>>
+    ): Flow<Result<String>>
 
     suspend fun patchCafeMenu(
         menuId: Long,
         patchCafeMenuRequestBody: PatchCafeMenuRequestBody
-    ): Flow<Result<CazaitResponse<CafeMenuDto>>>
+    ): Flow<Result<CafeMenuDto>>
 
     /** cafe information */
     suspend fun postCafeInformation(
         cafeId: Long,
         masterId: UUID,
         cafeCreateInRequestBody: CafeCreateInRequestBody
-    ): Flow<Result<CazaitResponse<CafeUpdateOutDto>>>
+    ): Flow<Result<CafeUpdateOutDto>>
 
     suspend fun postCafeActivation(
         cafeId: Long,
         masterId: UUID
-    ): Flow<Result<CazaitResponse<String>>>
+    ): Flow<Result<String>>
 
     suspend fun postResistCafe(
         masterId: UUID,
         cafeCreateInRequestBody: CafeCreateInRequestBody
-    ): Flow<Result<CazaitResponse<CafeCreateOutDto>>>
+    ): Flow<Result<CafeCreateOutDto>>
 
     /** managed cafes */
     suspend fun getManagedCafeList(
         masterId: UUID
-    ): Flow<Result<CazaitResponse<List<ManagedCafeListOutDto>>>>
+    ): Flow<Result<List<ManagedCafeListOutDto>>>
 }

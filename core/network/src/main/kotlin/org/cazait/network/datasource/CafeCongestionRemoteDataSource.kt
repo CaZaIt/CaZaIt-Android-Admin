@@ -11,5 +11,5 @@ interface CafeCongestionRemoteDataSource {
         masterId: UUID,
         cafeId: Long,
         requestBody: CongestionRequestBody
-    ): Flow<Result<CazaitResponse<CongestionUpdateOutDto>>>
+    ): Flow<Result<CongestionUpdateOutDto>>
 }

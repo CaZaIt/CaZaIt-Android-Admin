@@ -15,7 +15,7 @@ class CafeCongestionRemoteData @Inject constructor(
         masterId: UUID,
         cafeId: Long,
         requestBody: CongestionRequestBody
-    ): Flow<Result<CazaitResponse<CongestionUpdateOutDto>>> {
+    ): Flow<Result<CongestionUpdateOutDto>> {
         return processCall { congestionService.postCongestionStatus(masterId, cafeId, requestBody) }
     }
 }

@@ -13,18 +13,18 @@ import org.cazait.network.dto.response.UserAuthenticateOutDto
 interface UserRemoteDataSource {
     suspend fun postSignUp(
         signUpRequestBody: SignUpRequestBody
-    ): Flow<Result<CazaitResponse<SignUpResultDto>>>
+    ): Flow<Result<SignUpResultDto>>
 
     suspend fun postSignIn(
         signInRequestBody: SignInRequestBody
-    ): Flow<Result<CazaitResponse<SignInResultDto>>>
+    ): Flow<Result<SignInResultDto>>
 
     suspend fun getRefreshToken(
         userIdx: String,
         role: Role = Role.MASTER,
-    ): Flow<Result<CazaitResponse<TokenDto>>>
+    ): Flow<Result<TokenDto>>
 
-    suspend fun postIsEmailDup(email: String): Flow<Result<CazaitResponse<String>>>
+    suspend fun postIsEmailDup(email: String): Flow<Result<String>>
 
-    suspend fun getUpdatedAccessToken(refreshToken: String): Flow<Result<CazaitResponse<UserAuthenticateOutDto>>>
+    suspend fun getUpdatedAccessToken(refreshToken: String): Flow<Result<UserAuthenticateOutDto>>
 }

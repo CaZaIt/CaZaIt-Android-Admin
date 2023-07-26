@@ -56,7 +56,8 @@
     <fragment
         android:id="@+id/managedStoresFragment"
         android:name="org.cazait.presentation.ui.storestatus.ManagedStoresFragment"
-        android:label="ManagedStoresFragment">
+        android:label="ManagedStoresFragment"
+        tools:layout="@layout/fragment_managed_stores">
         <action
             android:id="@+id/action_managedStoresFragment_to_storeStatusFragment"
             app:destination="@id/storeStatusFragment" />

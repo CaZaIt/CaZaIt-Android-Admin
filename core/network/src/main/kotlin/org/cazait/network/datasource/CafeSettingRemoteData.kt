@@ -21,35 +21,35 @@ class CafeSettingRemoteData @Inject constructor(
     private val cafeMenuService: CafeMenuService,
     private val cafeService: CafeService
 ) : CafeSettingRemoteDataSource {
-    override suspend fun postCafeImageUrl(cafeImageCreateInRequestBody: CafeImageCreateInRequestBody): Flow<Result<CazaitResponse<String>>> {
+    override suspend fun postCafeImageUrl(cafeImageCreateInRequestBody: CafeImageCreateInRequestBody): Flow<Result<String>> {
         return processCall { cafeImageService.postCafeImageUrl(cafeImageCreateInRequestBody) }
     }
 
     override suspend fun deleteCafeImage(
         cafeImageId: Long, masterId: UUID
-    ): Flow<Result<CazaitResponse<String>>> {
+    ): Flow<Result<String>> {
         return processCall { cafeImageService.deleteCafeImage(cafeImageId, masterId) }
     }
 
     override suspend fun postCafeMenu(
         cafeId: Long, postCafeMenuRequestBody: PostCafeMenuRequestBody
-    ): Flow<Result<CazaitResponse<CafeMenuDto>>> {
+    ): Flow<Result<CafeMenuDto>> {
         return processCall { cafeMenuService.postCafeMenu(cafeId, postCafeMenuRequestBody) }
     }
 
-    override suspend fun deleteCafeMenu(menuId: Long): Flow<Result<CazaitResponse<String>>> {
+    override suspend fun deleteCafeMenu(menuId: Long): Flow<Result<String>> {
         return processCall { cafeMenuService.deleteCafeMenu(menuId) }
     }
 
     override suspend fun patchCafeMenu(
         menuId: Long, patchCafeMenuRequestBody: PatchCafeMenuRequestBody
-    ): Flow<Result<CazaitResponse<CafeMenuDto>>> {
+    ): Flow<Result<CafeMenuDto>> {
         return processCall { cafeMenuService.patchCafeMenu(menuId, patchCafeMenuRequestBody) }
     }
 
     override suspend fun postCafeInformation(
         cafeId: Long, masterId: UUID, cafeCreateInRequestBody: CafeCreateInRequestBody
-    ): Flow<Result<CazaitResponse<CafeUpdateOutDto>>> {
+    ): Flow<Result<CafeUpdateOutDto>> {
         return processCall {
             cafeService.postCafeInformation(
                 cafeId, masterId, cafeCreateInRequestBody
@@ -59,17 +59,17 @@ class CafeSettingRemoteData @Inject constructor(
 
     override suspend fun postCafeActivation(
         cafeId: Long, masterId: UUID
-    ): Flow<Result<CazaitResponse<String>>> {
+    ): Flow<Result<String>> {
         return processCall { cafeService.postCafeActivation(cafeId, masterId) }
     }
 
     override suspend fun postResistCafe(
         masterId: UUID, cafeCreateInRequestBody: CafeCreateInRequestBody
-    ): Flow<Result<CazaitResponse<CafeCreateOutDto>>> {
+    ): Flow<Result<CafeCreateOutDto>> {
         return processCall { cafeService.postResistCafe(masterId, cafeCreateInRequestBody) }
     }
 
-    override suspend fun getManagedCafeList(masterId: UUID): Flow<Result<CazaitResponse<List<ManagedCafeListOutDto>>>> {
+    override suspend fun getManagedCafeList(masterId: UUID): Flow<Result<List<ManagedCafeListOutDto>>> {
         return processCall { cafeService.getManagedCafeList(masterId) }
     }
 }

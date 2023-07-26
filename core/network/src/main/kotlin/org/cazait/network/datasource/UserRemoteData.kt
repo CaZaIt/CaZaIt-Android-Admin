@@ -19,7 +19,7 @@ class UserRemoteData @Inject constructor(
 
     override suspend fun postSignUp(
         signUpRequestBody: SignUpRequestBody
-    ): Flow<Result<CazaitResponse<SignUpResultDto>>> {
+    ): Flow<Result<SignUpResultDto>> {
         return processCall { userService.postSignUp(signUpRequestBody) }
     }
 
@@ -28,15 +28,15 @@ class UserRemoteData @Inject constructor(
 
     override suspend fun getRefreshToken(
         userIdx: String, role: Role
-    ): Flow<Result<CazaitResponse<TokenDto>>> {
+    ): Flow<Result<TokenDto>> {
         return processCall { authService.getRefreshToken(userIdx, role.value) }
     }
 
-    override suspend fun postIsEmailDup(email: String): Flow<Result<CazaitResponse<String>>> {
+    override suspend fun postIsEmailDup(email: String): Flow<Result<String>> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getUpdatedAccessToken(refreshToken: String): Flow<Result<CazaitResponse<UserAuthenticateOutDto>>> {
+    override suspend fun getUpdatedAccessToken(refreshToken: String): Flow<Result<UserAuthenticateOutDto>> {
         TODO("Not yet implemented")
     }
 }

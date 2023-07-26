@@ -88,8 +88,7 @@ class StoreRepositoryImpl @Inject constructor(
 
         return apiCaller.safeApiCall {
             cafeSettingRemoteData.postResistCafe(
-                user.uuid,
-                requestBody
+                user.uuid, requestBody
             )
         }
     }
@@ -112,27 +111,21 @@ class StoreRepositoryImpl @Inject constructor(
         return apiCaller.safeApiCallWithData(
             call = { cafeSettingRemoteData.getManagedCafeList(user.uuid) },
             asDomain = { dto -> dto.asDomain() },
-            onNullDataError = ErrorType.NOT_FOUND,
-            needServerDescription = true
         )
     }
 
-    private suspend fun getUserPreferenceOrDefault() =
-        runCatching { userPreferenceRepository.getUserPreference().first() }.getOrDefault(
-            UserPreference.getDefaultInstance()
-        )
+    private suspend fun getUserPreferenceOrDefault() = runCatching {
+        userPreferenceRepository.getUserPreference().first()
+    }.getOrDefault(UserPreference.getDefaultInstance())
 
     private fun List<ManagedCafeListOutDto>.asDomain() = map { it.asDomain() }
 
-    private fun ManagedCafeListOutDto.asDomain() = ManagedCafe(
-        cafeId = cafeId,
+    private fun ManagedCafeListOutDto.asDomain() = ManagedCafe(cafeId = cafeId,
         name = name,
         address = address,
-        cafeImages = cafeImages.map { it.asDomain() }
-    )
+        cafeImages = cafeImages.map { it.asDomain() })
 
     private fun ImageInformationDto.asDomain() = CafeImage(
-        imageId = imageId,
-        url = url
+        imageId = imageId, url = url
     )
 }

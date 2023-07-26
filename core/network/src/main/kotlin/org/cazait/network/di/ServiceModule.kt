@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import org.cazait.network.annotation.Authenticated
 import org.cazait.network.api.CafeImageService
 import org.cazait.network.api.CafeMenuService
 import org.cazait.network.api.CafeService
