@@ -1,17 +1,17 @@
 package org.cazait.network.di
 
-import org.cazait.network.api.AuthService
-import org.cazait.network.api.UserService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import org.cazait.network.annotation.Authenticated
+import org.cazait.network.api.AuthService
 import org.cazait.network.api.CafeImageService
 import org.cazait.network.api.CafeMenuService
 import org.cazait.network.api.CafeService
 import org.cazait.network.api.CongestionService
+import org.cazait.network.api.UserService
 import retrofit2.Retrofit
-import retrofit2.create
 import javax.inject.Singleton
 
 @Module

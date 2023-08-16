@@ -4,17 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.sidesheet.SideSheetBehavior
 import com.google.android.material.sidesheet.SideSheetCallback
 import com.google.android.material.sidesheet.SideSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import org.bmsk.domain.exception.UnauthorizedException
+import org.bmsk.domain.model.ManagedCafe
 import org.cazait.presentation.R
 import org.cazait.presentation.databinding.FragmentStoreStatusBinding
 import org.cazait.presentation.databinding.LayoutSideSheetBinding
+import java.io.IOException
 
 @AndroidEntryPoint
 class StoreStatusFragment : Fragment() {
@@ -39,8 +46,30 @@ class StoreStatusFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        observeViewModel()
+    }
+
     fun showMenu() {
         binding.menuButton.setOnClickListener { sideSheetMenu.show() }
+    }
+
+    private fun observeViewModel() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            launch {
+                viewModel.errorEventFlow.collectLatest {
+                    handleError(it)
+                }
+            }
+            launch {
+                viewModel.selectedCafeFlow.collectLatest {
+                    it?.let { updateView(it) }
+                }
+            }
+
+            viewModel.fetchManagedCafes()
+        }
     }
 
     private fun createSideSheetDialog() = SideSheetDialog(requireContext()).apply {
@@ -82,6 +111,10 @@ class StoreStatusFragment : Fragment() {
             navigateToCafeDescriptionFragment()
 
         }
+        storeMenuSettingButton.setOnClickListener {
+            sideSheetMenu.cancel()
+            navigateToCafeMenuSettingFragment()
+        }
     }
 
     private fun navigateToCafeImageSettingFragment() {
@@ -92,6 +125,27 @@ class StoreStatusFragment : Fragment() {
     }
     private fun navigateToCafeDescriptionFragment() {
         findNavController().navigate(StoreStatusFragmentDirections.actionStoreStatusFragmentToCafeDescriptionFragment())
+    }
+
+    private fun navigateToCafeMenuSettingFragment() {
+        findNavController().navigate(StoreStatusFragmentDirections.actionStoreStatusFragmentToCafeMenuSettingFragment())
+    }
+
+    private fun handleError(exception: Exception) {
+        val message = when (exception) {
+            is IOException -> getString(R.string.network_error_occurred)
+            is UnauthorizedException -> getString(R.string.authorization_error_occurred)
+            else -> ""
+        }
+        showToast(message)
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun updateView(managedCafe: ManagedCafe) {
+        binding.tvCafeName.text = managedCafe.name
     }
 
     override fun onDestroyView() {

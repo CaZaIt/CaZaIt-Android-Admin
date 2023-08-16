@@ -1,6 +1,7 @@
 package org.cazait.presentation.ui.signin
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,8 +11,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.cazait.presentation.R
@@ -59,32 +60,24 @@ class SignInFragment : Fragment() {
                 launch {
                     viewModel.userPreference.collect {
                         if (it.isLoggedIn) {
-                            navigateToStoreStatusFragment()
+                            Log.d("SingInFragment", it.toString())
+                            navigateToStoreManagedStoresFragment()
                         }
-                    }
-                }
-                launch {
-                    viewModel.signInInfoStateFlow.collect { signInResult ->
-                        if (signInResult == null) return@collect
-                        navigateToStoreStatusFragment()
-                    }
-                }
-                launch {
-                    viewModel.guideMessage.collect { message ->
-                        if (message.isNotEmpty())
-                            showMessage(message)
                     }
                 }
             }
         }
     }
 
-    private fun showMessage(message: String) {
-        Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT).show()
-    }
-
-    private fun navigateToStoreStatusFragment() {
-        findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToStoreStatusFragment())
+    private fun navigateToStoreManagedStoresFragment() {
+        findNavController().navigate(
+            SignInFragmentDirections.actionSignInFragmentToManagedStoresFragment(),
+            NavOptions.Builder()
+                .setPopUpTo(
+                    R.id.signInFragment,
+                    true // Inclusive: true if signInFragment should be removed, false otherwise.
+                ).build()
+        )
     }
 
     fun navigateToSignUpFragment() {

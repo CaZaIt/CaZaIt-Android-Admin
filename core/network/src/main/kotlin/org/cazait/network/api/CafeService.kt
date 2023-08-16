@@ -4,8 +4,10 @@ import org.cazait.network.dto.request.CafeCreateInRequestBody
 import org.cazait.network.dto.response.CafeCreateOutDto
 import org.cazait.network.dto.response.CafeUpdateOutDto
 import org.cazait.network.dto.response.CazaitResponse
+import org.cazait.network.dto.response.ManagedCafeListOutDto
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
 import java.util.UUID
@@ -36,4 +38,10 @@ interface CafeService {
         @Body
         cafeCreateInRequestBody: CafeCreateInRequestBody
     ): Response<CazaitResponse<CafeCreateOutDto>>
+
+    @GET("/api/cafes/{masterId}/cafes")
+    suspend fun getManagedCafeList(
+        @Path("masterId")
+        masterId: UUID
+    ): Response<CazaitResponse<List<ManagedCafeListOutDto>>>
 }

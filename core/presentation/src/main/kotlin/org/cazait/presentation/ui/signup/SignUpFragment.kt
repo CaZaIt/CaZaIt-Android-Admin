@@ -11,7 +11,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.cazait.presentation.R
@@ -37,7 +36,6 @@ class SignUpFragment : Fragment() {
             ).apply {
                 lifecycleOwner = this@SignUpFragment.viewLifecycleOwner
                 viewModel = this@SignUpFragment.viewModel
-                fragment = this@SignUpFragment
             }
         return binding.root
     }
@@ -57,20 +55,11 @@ class SignUpFragment : Fragment() {
                         }
                     }
                 }
-                launch {
-                    viewModel.guideMessage.collect { message ->
-                        showMessage(message)
-                    }
-                }
             }
         }
     }
 
     private fun navigateToBackStack() {
         findNavController().popBackStack()
-    }
-
-    private fun showMessage(message: String) {
-        Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT).show()
     }
 }

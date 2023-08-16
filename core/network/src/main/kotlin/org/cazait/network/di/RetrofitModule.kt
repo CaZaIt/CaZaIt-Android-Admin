@@ -1,6 +1,5 @@
 package org.cazait.network.di
 
-import org.cazait.network.NetworkConnectivity
 import android.content.Context
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -8,10 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -19,15 +15,12 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.cazait.datastore.data.repository.UserPreferenceRepository
 import org.cazait.model.local.UserPreference
 import org.cazait.network.Network
+import org.cazait.network.NetworkConnectivity
+import org.cazait.network.annotation.Authenticated
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Qualifier
 import javax.inject.Singleton
-
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class Authenticated
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -108,9 +101,9 @@ object RetrofitModule {
         userPreferenceRepository: UserPreferenceRepository
     ): Interceptor {
         val user = runBlocking(Dispatchers.IO) {
-            kotlin.runCatching {
-                userPreferenceRepository.getUserPreference().first()
-            }.getOrDefault(UserPreference.getDefaultInstance())
+            userPreferenceRepository.getUserPreference().getOrElse {
+                UserPreference.getDefaultInstance()
+            }
         }
 
         return Interceptor { chain ->

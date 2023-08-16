@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="org.cazait.presentation.ui.settings.CafeMenuSettingViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -62,6 +64,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textSize="28sp"
+            android:text="@{@string/menu_description(viewModel.selectedMenuFlow.description)}"
             app:layout_constraintEnd_toStartOf="@id/verticalGuideLine05"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/horizontalGuideLine025"

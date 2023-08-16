@@ -1,22 +1,24 @@
 package org.cazait.network.datasource
 
+import android.accounts.NetworkErrorException
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import org.bmsk.domain.exception.EmptyDataException
 import org.cazait.network.dto.response.CazaitResponse
 import retrofit2.Response
 
-suspend fun <T> processCall(call: suspend () -> Response<CazaitResponse<T>>): Flow<Result<CazaitResponse<T>>> {
+fun <T> processCall(call: suspend () -> Response<CazaitResponse<T>>): Flow<Result<T>> {
     return flow {
-        kotlin.runCatching {
-            val response = call()
-
-            val body = response.body()
-            if (response.isSuccessful && body != null) {
-                emit(Result.success(body))
-            } else {
-                val errorMessage = response.errorBody()?.string() ?: "Unknown Error"
-                emit(Result.failure(Exception(errorMessage)))
+        val response = call()
+        if (response.isSuccessful) {
+            response.body()?.let { cazaitResponse ->
+                emit(
+                    if (cazaitResponse.data != null) Result.success(cazaitResponse.data)
+                    else Result.failure(EmptyDataException())
+                )
             }
+        } else {
+            emit(Result.failure(NetworkErrorException()))
         }
     }
 }

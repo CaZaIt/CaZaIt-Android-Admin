@@ -3,8 +3,8 @@ package org.cazait.network.dto.request
 import com.google.gson.annotations.SerializedName
 
 data class SignInRequestBody(
-    @SerializedName("accountNumber")
-    val loginId: String,
+    @SerializedName("accountName")
+    val accountName: String,
     @SerializedName("password")
     val password: String,
 )

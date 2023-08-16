@@ -1,7 +1,5 @@
 package org.bmsk.domain.exception
 
-import org.bmsk.domain.R
-
 enum class ErrorType {
     NETWORK_ERROR,
     NOT_FOUND,
@@ -10,19 +8,19 @@ enum class ErrorType {
     UNKNOWN_ERROR,
 }
 
-sealed class DomainError(val errorType: ErrorType, val messageResId: Int) {
-    data class NetworkError(val serverDescription: String?) :
-        DomainError(ErrorType.NETWORK_ERROR, R.string.network_error_occurred)
+sealed class DomainError(val serverDescription: String?, val errorType: ErrorType) {
+    class NetworkError(serverDescription: String?) :
+        DomainError(serverDescription, ErrorType.NETWORK_ERROR)
 
-    data class NotFound(val serverDescription: String?) :
-        DomainError(ErrorType.NOT_FOUND, R.string.data_not_found)
+    class NotFound(serverDescription: String?) :
+        DomainError(serverDescription, ErrorType.NOT_FOUND)
 
-    data class AuthorizationError(val serverDescription: String?) :
-        DomainError(ErrorType.AUTHORIZATION_ERROR, R.string.authorization_error_occurred)
+    class AuthorizationError(serverDescription: String?) :
+        DomainError(serverDescription, ErrorType.AUTHORIZATION_ERROR)
 
-    data class InvalidInputError(val serverDescription: String?) :
-        DomainError(ErrorType.INVALID_INPUT_ERROR, R.string.invalid_input_error)
+    class InvalidInputError(serverDescription: String?) :
+        DomainError(serverDescription, ErrorType.INVALID_INPUT_ERROR)
 
-    data class UnKnownError(val serverDescription: String?) :
-        DomainError(ErrorType.UNKNOWN_ERROR, R.string.unknown_error_occured)
+    class UnKnownError(serverDescription: String?) :
+        DomainError(serverDescription, ErrorType.UNKNOWN_ERROR)
 }
