@@ -15,10 +15,7 @@ import com.google.android.material.sidesheet.SideSheetCallback
 import com.google.android.material.sidesheet.SideSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import org.bmsk.domain.exception.DomainError
-import org.bmsk.domain.exception.ErrorType
 import org.bmsk.domain.exception.UnauthorizedException
 import org.bmsk.domain.model.ManagedCafe
 import org.cazait.presentation.R

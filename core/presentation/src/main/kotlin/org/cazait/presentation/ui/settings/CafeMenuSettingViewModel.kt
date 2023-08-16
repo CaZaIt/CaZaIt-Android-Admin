@@ -6,7 +6,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import org.bmsk.domain.DomainResult
 import org.bmsk.domain.model.CafeMenu
@@ -32,16 +31,7 @@ class CafeMenuSettingViewModel @Inject constructor(
     ) {
         selectedMenuFlow.value?.let {
             viewModelScope.launch {
-                _submitMenuChangesEvent.emit(DomainResult.Loading())
-                _submitMenuChangesEvent.emit(
-                    storeUseCase.updateCafeMenu(
-                        it.menuId,
-                        changedName,
-                        changedDescription,
-                        changedPrice,
-                        changedImageUrl
-                    ).first()
-                )
+
             }
         }
     }

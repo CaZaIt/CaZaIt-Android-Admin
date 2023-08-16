@@ -4,7 +4,7 @@ import java.util.UUID
 
 data class SignInInfo(
     val id: UUID,
-    val loginId: String,
+    val accountName: String,
     val accessToken: String,
     val refreshToken: String,
     val role: String

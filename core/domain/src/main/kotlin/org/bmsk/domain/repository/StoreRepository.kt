@@ -1,57 +1,57 @@
 package org.bmsk.domain.repository
 
 import kotlinx.coroutines.flow.Flow
-import org.bmsk.domain.DomainResult
 import org.bmsk.domain.model.CongestionStatus
 import org.bmsk.domain.model.ManagedCafe
+import java.util.UUID
 
 interface StoreRepository {
     /** cafe image */
-    suspend fun addCafeBackgroundImage(
+    fun addCafeBackgroundImage(
         cafeId: Long,
         imageUrl: List<String>
-    ): Flow<DomainResult<String>>
+    ): Flow<Result<String>>
 
-    suspend fun deleteCafeBackgroundImage(cafeImageId: Long): Flow<DomainResult<String>>
+    fun deleteCafeBackgroundImage(cafeImageId: Long): Flow<Result<String>>
 
     /** cafe menu */
-    suspend fun addCafeMenu(
+    fun addCafeMenu(
         cafeId: Long,
         name: String,
         description: String,
         price: Int,
         imageUrl: String
-    ): Flow<DomainResult<String>>
+    ): Flow<Result<String>>
 
-    suspend fun updateCafeMenu(
+    fun updateCafeMenu(
         menuId: Long,
         name: String?,
         description: String?,
         price: Int,
         imageUrl: String
-    ): Flow<DomainResult<String>>
+    ): Flow<Result<String>>
 
-    suspend fun deleteCafeMenu(
+    fun deleteCafeMenu(
         menuId: Long
-    ): Flow<DomainResult<String>>
+    ): Flow<Result<String>>
 
     /** cafe description */
-    suspend fun updateCafeDescription(
+    fun updateCafeDescription(
         cafeId: Long,
         cafeName: String,
         address: String
-    ): Flow<DomainResult<String>>
+    ): Flow<Result<String>>
 
     /** cafe activation */
-    suspend fun updateCafeActivation(cafeId: Long): Flow<DomainResult<String>>
-    suspend fun resistCafe(name: String, address: String): Flow<DomainResult<String>>
+    fun updateCafeActivation(cafeId: Long): Flow<Result<String>>
+    fun resistCafe(name: String, address: String): Flow<Result<String>>
 
     /** cafe congestion */
-    suspend fun updateCafeCongestionStatus(
+    fun updateCafeCongestionStatus(
         cafeId: Long,
         congestionStatus: CongestionStatus
-    ): Flow<DomainResult<String>>
+    ): Flow<Result<String>>
 
     /** about managed cafes */
-    suspend fun getManagedCafeList(): Flow<DomainResult<List<ManagedCafe>>>
+    fun getManagedCafeList(uuid: UUID): Flow<Result<List<ManagedCafe>>>
 }

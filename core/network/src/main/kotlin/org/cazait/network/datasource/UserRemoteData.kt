@@ -6,7 +6,6 @@ import org.cazait.network.api.AuthService
 import org.cazait.network.api.UserService
 import org.cazait.network.dto.request.SignInRequestBody
 import org.cazait.network.dto.request.SignUpRequestBody
-import org.cazait.network.dto.response.CazaitResponse
 import org.cazait.network.dto.response.SignUpResultDto
 import org.cazait.network.dto.response.TokenDto
 import org.cazait.network.dto.response.UserAuthenticateOutDto
@@ -17,26 +16,26 @@ class UserRemoteData @Inject constructor(
     private val authService: AuthService,
 ) : UserRemoteDataSource {
 
-    override suspend fun postSignUp(
+    override fun postSignUp(
         signUpRequestBody: SignUpRequestBody
     ): Flow<Result<SignUpResultDto>> {
         return processCall { userService.postSignUp(signUpRequestBody) }
     }
 
-    override suspend fun postSignIn(signInRequestBody: SignInRequestBody) =
+    override fun postSignIn(signInRequestBody: SignInRequestBody) =
         processCall { authService.postSignIn(signInRequestBody) }
 
-    override suspend fun getRefreshToken(
+    override fun getRefreshToken(
         userIdx: String, role: Role
     ): Flow<Result<TokenDto>> {
         return processCall { authService.getRefreshToken(userIdx, role.value) }
     }
 
-    override suspend fun postIsEmailDup(email: String): Flow<Result<String>> {
+    override fun postIsEmailDup(email: String): Flow<Result<String>> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun getUpdatedAccessToken(refreshToken: String): Flow<Result<UserAuthenticateOutDto>> {
+    override fun getUpdatedAccessToken(refreshToken: String): Flow<Result<UserAuthenticateOutDto>> {
         TODO("Not yet implemented")
     }
 }

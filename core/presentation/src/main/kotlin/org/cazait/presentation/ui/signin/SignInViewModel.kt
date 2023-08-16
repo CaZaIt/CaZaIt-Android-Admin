@@ -6,9 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import org.bmsk.domain.DomainResult
 import org.bmsk.domain.model.SignInInfo
 import org.bmsk.domain.usecase.UserUseCase
 import org.cazait.model.local.UserPreference
@@ -27,26 +25,23 @@ class SignInViewModel @Inject constructor(
     private val _signInInfoStateFlow = MutableStateFlow<SignInInfo?>(null)
     val signInInfoStateFlow = _signInInfoStateFlow.asStateFlow()
 
-    private val _guideMessage = MutableStateFlow("")
-    val guideMessage = _guideMessage.asStateFlow()
-
     init {
         viewModelScope.launch {
-            _userPreference.value = userUseCase.getCurrentUser().first()
+            _userPreference.value = userUseCase.getCurrentUser()
         }
     }
 
     fun signIn() {
         Log.d("SignInViewModel", "singin")
         viewModelScope.launch {
-            val signInResult = userUseCase.signIn(emailText.value, passwordText.value).first()
-            if (signInResult is DomainResult.Success) {
-                _signInInfoStateFlow.value = signInResult.data
-                userUseCase.saveUserSignInformation(signInResult.data)
-            } else if (signInResult is DomainResult.Error) {
-                // 대응되는 코드 어떻게 할지 고민
-            } else {
-                Log.d("SignInViewModel", "뭐가 문제야.")
+            userUseCase.signIn(emailText.value, passwordText.value).collect { result ->
+                Log.d("SignInViewModel", result.toString())
+                result.onSuccess { signInInfo ->
+                    _signInInfoStateFlow.value = signInInfo
+                    userUseCase.saveUserSignInformation(signInInfo)
+                }.onFailure {
+                    Log.e("SignInViewModel", "실패입니다.")
+                }
             }
         }
     }

@@ -12,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import org.cazait.presentation.R
@@ -66,22 +65,12 @@ class SignInFragment : Fragment() {
                 }
                 launch {
                     viewModel.signInInfoStateFlow.collect { signInResult ->
-                        if (signInResult == null) return@collect
-                        navigateToStoreManagedStoresFragment()
-                    }
-                }
-                launch {
-                    viewModel.guideMessage.collect { message ->
-                        if (message.isNotEmpty())
-                            showMessage(message)
+                        if (signInResult != null)
+                            navigateToStoreManagedStoresFragment()
                     }
                 }
             }
         }
-    }
-
-    private fun showMessage(message: String) {
-        Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT).show()
     }
 
     private fun navigateToStoreManagedStoresFragment() {
@@ -92,7 +81,8 @@ class SignInFragment : Fragment() {
                     R.id.signInFragment,
                     true // Inclusive: true if signInFragment should be removed, false otherwise.
                 ).build()
-        )    }
+        )
+    }
 
     fun navigateToSignUpFragment() {
         findNavController().navigate(SignInFragmentDirections.actionSignInFragmentToSignUpFragment())

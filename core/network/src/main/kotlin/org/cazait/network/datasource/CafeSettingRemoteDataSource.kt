@@ -8,55 +8,54 @@ import org.cazait.network.dto.request.PostCafeMenuRequestBody
 import org.cazait.network.dto.response.CafeCreateOutDto
 import org.cazait.network.dto.response.CafeMenuDto
 import org.cazait.network.dto.response.CafeUpdateOutDto
-import org.cazait.network.dto.response.CazaitResponse
 import org.cazait.network.dto.response.ManagedCafeListOutDto
 import java.util.UUID
 
 interface CafeSettingRemoteDataSource {
     /** image */
-    suspend fun postCafeImageUrl(
+    fun postCafeImageUrl(
         cafeImageCreateInRequestBody: CafeImageCreateInRequestBody
     ): Flow<Result<String>>
 
-    suspend fun deleteCafeImage(
+    fun deleteCafeImage(
         cafeImageId: Long,
         masterId: UUID
     ): Flow<Result<String>>
 
     /** menu */
-    suspend fun postCafeMenu(
+    fun postCafeMenu(
         cafeId: Long,
         postCafeMenuRequestBody: PostCafeMenuRequestBody
     ): Flow<Result<CafeMenuDto>>
 
-    suspend fun deleteCafeMenu(
+    fun deleteCafeMenu(
         menuId: Long
     ): Flow<Result<String>>
 
-    suspend fun patchCafeMenu(
+    fun patchCafeMenu(
         menuId: Long,
         patchCafeMenuRequestBody: PatchCafeMenuRequestBody
     ): Flow<Result<CafeMenuDto>>
 
     /** cafe information */
-    suspend fun postCafeInformation(
+    fun postCafeInformation(
         cafeId: Long,
         masterId: UUID,
         cafeCreateInRequestBody: CafeCreateInRequestBody
     ): Flow<Result<CafeUpdateOutDto>>
 
-    suspend fun postCafeActivation(
+    fun postCafeActivation(
         cafeId: Long,
         masterId: UUID
     ): Flow<Result<String>>
 
-    suspend fun postResistCafe(
+    fun postResistCafe(
         masterId: UUID,
         cafeCreateInRequestBody: CafeCreateInRequestBody
     ): Flow<Result<CafeCreateOutDto>>
 
     /** managed cafes */
-    suspend fun getManagedCafeList(
+    fun getManagedCafeList(
         masterId: UUID
     ): Flow<Result<List<ManagedCafeListOutDto>>>
 }
