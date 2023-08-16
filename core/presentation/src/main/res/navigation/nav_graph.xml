@@ -31,8 +31,11 @@
             android:id="@+id/action_storeStatusFragment_to_cafeImageSettingFragment"
             app:destination="@id/cafeImageSettingFragment" />
         <action
-            android:id="@+id/action_storeStatusFragment_to_cafeMenuSettingFragment"
-            app:destination="@id/cafeMenuSettingFragment" />
+            android:id="@+id/action_storeStatusFragment_to_cafeAnnouncementFragment"
+            app:destination="@id/cafeAnnouncementFragment" />
+        <action
+            android:id="@+id/action_storeStatusFragment_to_cafeDescriptionFragment"
+            app:destination="@id/cafeDescriptionFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -49,17 +52,13 @@
         android:label="CafeImageSettingFragment"
         tools:layout="@layout/fragment_cafe_image_setting" />
     <fragment
-        android:id="@+id/cafeMenuSettingFragment"
-        android:name="org.cazait.presentation.ui.settings.CafeMenuSettingFragment"
-        android:label="CafeMenuSettingFragment"
-        tools:layout="@layout/fragment_cafe_menu_setting" />
+        android:id="@+id/cafeAnnouncementFragment"
+        android:name="org.cazait.presentation.ui.announcement.CafeAnnouncementFragment"
+        android:label="CafeAnnouncementFragment"
+        tools:layout="@layout/fragment_cafe_announcement" />
     <fragment
-        android:id="@+id/managedStoresFragment"
-        android:name="org.cazait.presentation.ui.storestatus.ManagedStoresFragment"
-        android:label="ManagedStoresFragment"
-        tools:layout="@layout/fragment_managed_stores">
-        <action
-            android:id="@+id/action_managedStoresFragment_to_storeStatusFragment"
-            app:destination="@id/storeStatusFragment" />
-    </fragment>
+        android:id="@+id/cafeDescriptionFragment"
+        android:name="org.cazait.presentation.ui.description.CafeDescriptionFragment"
+        android:label="CafeDescriptionFragment"
+        tools:layout="@layout/fragment_cafe_description" />
 </navigation>
