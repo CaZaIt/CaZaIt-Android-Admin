@@ -36,6 +36,9 @@
         <action
             android:id="@+id/action_storeStatusFragment_to_cafeDescriptionFragment"
             app:destination="@id/cafeDescriptionFragment" />
+        <action
+            android:id="@+id/action_storeStatusFragment_to_cafeMenuSettingFragment"
+            app:destination="@id/cafeMenuSettingFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -61,4 +64,18 @@
         android:name="org.cazait.presentation.ui.description.CafeDescriptionFragment"
         android:label="CafeDescriptionFragment"
         tools:layout="@layout/fragment_cafe_description" />
+    <fragment
+        android:id="@+id/managedStoresFragment"
+        android:name="org.cazait.presentation.ui.storestatus.ManagedStoresFragment"
+        android:label="ManagedStoresFragment"
+        tools:layout="@layout/fragment_managed_stores" >
+        <action
+            android:id="@+id/action_managedStoresFragment_to_storeStatusFragment"
+            app:destination="@id/storeStatusFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cafeMenuSettingFragment"
+        android:name="org.cazait.presentation.ui.settings.CafeMenuSettingFragment"
+        android:label="CafeMenuSettingFragment"
+        tools:layout="@layout/fragment_cafe_menu_setting"/>
 </navigation>
