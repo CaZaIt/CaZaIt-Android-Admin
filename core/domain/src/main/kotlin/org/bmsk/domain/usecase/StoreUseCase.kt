@@ -1,7 +1,6 @@
 package org.bmsk.domain.usecase
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import org.bmsk.domain.model.ManagedCafe
 import org.bmsk.domain.repository.StoreRepository
 import org.bmsk.domain.repository.UserRepository
@@ -32,7 +31,9 @@ class StoreUseCase @Inject constructor(
     }
 
     suspend fun getManagedCafes(): Flow<Result<List<ManagedCafe>>> {
-        val uuid = userRepository.getCurrentUser().first().uuid
-        return storeRepository.getManagedCafeList(uuid)
+        val userPreference = userRepository.getCurrentUser().getOrElse {
+            userRepository.deleteUserInformation()
+        }
+        return storeRepository.getManagedCafeList(userPreference.uuid)
     }
 }

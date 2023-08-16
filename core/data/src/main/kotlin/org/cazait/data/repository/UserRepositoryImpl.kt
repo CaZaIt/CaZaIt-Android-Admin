@@ -1,28 +1,29 @@
 package org.cazait.data.repository
 
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.launch
 import org.bmsk.domain.model.SignInInfo
 import org.bmsk.domain.model.SignUpInfo
 import org.bmsk.domain.repository.UserRepository
 import org.cazait.datastore.data.repository.UserPreferenceRepository
+import org.cazait.model.local.UserPreference
 import org.cazait.network.datasource.UserRemoteData
 import org.cazait.network.dto.request.SignInRequestBody
 import org.cazait.network.dto.request.SignUpRequestBody
 import org.cazait.network.dto.response.SignInResultDto
 import org.cazait.network.dto.response.SignUpResultDto
 import javax.inject.Inject
-import kotlin.coroutines.CoroutineContext
 
 class UserRepositoryImpl @Inject constructor(
     private val userRemoteData: UserRemoteData,
     private val userPreferenceRepository: UserPreferenceRepository,
-    private val ioDispatcher: CoroutineContext
 ) : UserRepository {
-    override fun getCurrentUser() = userPreferenceRepository.getUserPreference()
+    override suspend fun getCurrentUser() = userPreferenceRepository.getUserPreference()
+    override suspend fun deleteUserInformation(): UserPreference {
+        return userPreferenceRepository.clearUserPreference()
+    }
+
     override fun signIn(accountName: String, password: String): Flow<Result<SignInInfo>> {
         return userRemoteData.postSignIn(SignInRequestBody(accountName, password)).map {
             it.mapCatching { data ->
@@ -55,18 +56,17 @@ class UserRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override fun saveSignInInfo(signInInfo: SignInInfo) {
-        CoroutineScope(ioDispatcher).launch {
-            userPreferenceRepository.updateUserPreference(
-                isLoggedIn = true,
-                id = signInInfo.id.toString(),
-                accountName = signInInfo.accountName,
-                role = signInInfo.role,
-                accessToken = signInInfo.accessToken,
-                refreshToken = signInInfo.refreshToken
-            )
-        }
+    override suspend fun saveSignInInfo(signInInfo: SignInInfo) {
+        userPreferenceRepository.updateUserPreference(
+            isLoggedIn = true,
+            id = signInInfo.id.toString(),
+            accountName = signInInfo.accountName,
+            role = signInInfo.role,
+            accessToken = signInInfo.accessToken,
+            refreshToken = signInInfo.refreshToken
+        )
     }
+
 }
 
 private fun SignInResultDto.asDomain() = SignInInfo(

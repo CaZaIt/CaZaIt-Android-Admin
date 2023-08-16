@@ -1,6 +1,7 @@
 package org.cazait.presentation.ui.signin
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -59,14 +60,9 @@ class SignInFragment : Fragment() {
                 launch {
                     viewModel.userPreference.collect {
                         if (it.isLoggedIn) {
+                            Log.d("SingInFragment", it.toString())
                             navigateToStoreManagedStoresFragment()
                         }
-                    }
-                }
-                launch {
-                    viewModel.signInInfoStateFlow.collect { signInResult ->
-                        if (signInResult != null)
-                            navigateToStoreManagedStoresFragment()
                     }
                 }
             }

@@ -1,7 +1,6 @@
 package org.bmsk.domain.usecase
 
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.first
 import org.bmsk.domain.model.SignInInfo
 import org.bmsk.domain.model.SignUpInfo
 import org.bmsk.domain.repository.UserRepository
@@ -12,7 +11,9 @@ class UserUseCase @Inject constructor(
     private val repository: UserRepository
 ) {
     suspend fun getCurrentUser(): UserPreference {
-        return repository.getCurrentUser().first()
+        return repository.getCurrentUser().getOrElse {
+            repository.deleteUserInformation()
+        }
     }
 
     fun signIn(accountName: String, password: String) = repository.signIn(accountName, password)
@@ -21,7 +22,7 @@ class UserUseCase @Inject constructor(
         return repository.signUp(loginId, password, nickname)
     }
 
-    fun saveUserSignInformation(signInInfo: SignInInfo) {
+    suspend fun saveUserSignInformation(signInInfo: SignInInfo) {
         repository.saveSignInInfo(signInInfo)
     }
 }

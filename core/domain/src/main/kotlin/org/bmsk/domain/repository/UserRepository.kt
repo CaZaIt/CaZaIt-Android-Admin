@@ -6,7 +6,8 @@ import org.bmsk.domain.model.SignUpInfo
 import org.cazait.model.local.UserPreference
 
 interface UserRepository {
-    fun getCurrentUser(): Flow<UserPreference>
+    suspend fun getCurrentUser(): Result<UserPreference>
+    suspend fun deleteUserInformation(): UserPreference
     fun signIn(accountName: String, password: String): Flow<Result<SignInInfo>>
     fun signUp(loginId: String, password: String, nickname: String): Flow<Result<SignUpInfo>>
     fun refreshToken(): Flow<Result<String>>
@@ -14,5 +15,5 @@ interface UserRepository {
     fun isNicknameDup(nickname: String): Flow<Result<Boolean>>
     fun isEmailDup(email: String): Flow<Result<Boolean>>
 
-    fun saveSignInInfo(signInInfo: SignInInfo)
+    suspend fun saveSignInInfo(signInInfo: SignInInfo)
 }

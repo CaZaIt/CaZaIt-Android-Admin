@@ -8,7 +8,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -102,9 +101,9 @@ object RetrofitModule {
         userPreferenceRepository: UserPreferenceRepository
     ): Interceptor {
         val user = runBlocking(Dispatchers.IO) {
-            kotlin.runCatching {
-                userPreferenceRepository.getUserPreference().first()
-            }.getOrDefault(UserPreference.getDefaultInstance())
+            userPreferenceRepository.getUserPreference().getOrElse {
+                UserPreference.getDefaultInstance()
+            }
         }
 
         return Interceptor { chain ->

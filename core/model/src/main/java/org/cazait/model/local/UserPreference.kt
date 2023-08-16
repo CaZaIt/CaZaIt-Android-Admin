@@ -17,7 +17,7 @@ data class UserPreference(
     companion object {
         fun getDefaultInstance() = UserPreference(
             isLoggedIn = false,
-            id = "",
+            id = UUID.randomUUID().toString(),
             accountName = "",
             role = "",
             accessToken = "",
