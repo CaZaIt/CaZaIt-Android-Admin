@@ -9,6 +9,9 @@ import org.bmsk.domain.repository.UserRepository
 import org.cazait.datastore.data.repository.UserPreferenceRepository
 import org.cazait.model.local.UserPreference
 import org.cazait.network.datasource.UserRemoteData
+import org.cazait.network.dto.request.CheckNicknameReq
+import org.cazait.network.dto.request.CheckPhoneNumReq
+import org.cazait.network.dto.request.CheckUserIdReq
 import org.cazait.network.dto.request.SignInRequestBody
 import org.cazait.network.dto.request.SignUpRequestBody
 import org.cazait.network.dto.response.SignInResultDto
@@ -32,28 +35,60 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun signUp(loginId: String, password: String, nickname: String) = flow<Result<SignUpInfo>> {
-        userRemoteData.postSignUp(
-            SignUpRequestBody(loginId, password, nickname)
-        ).map {
-            it.onSuccess { dto ->
-                emit(Result.success(dto.asDomain()))
-            }.onFailure { t ->
-                emit(Result.failure(t))
+    override fun signUp(loginId: String, password: String, phoneNumber: String, nickname: String) =
+        flow<Result<SignUpInfo>> {
+            userRemoteData.postSignUp(
+                SignUpRequestBody(loginId, password, phoneNumber, nickname)
+            ).map {
+                it.onSuccess { dto ->
+                    emit(Result.success(dto.asDomain()))
+                }.onFailure { t ->
+                    emit(Result.failure(t))
+                }
             }
         }
-    }
 
     override fun refreshToken(): Flow<Result<String>> {
         TODO("Not yet implemented")
     }
 
-    override fun isNicknameDup(nickname: String): Flow<Result<Boolean>> {
-        TODO("Not yet implemented")
+    override suspend fun checkPhoneNumDB(
+        phoneNumber: String,
+        isExist: String
+    ): Flow<Result<String>> {
+        return flow {
+            userRemoteData.postCheckPhoneNum(CheckPhoneNumReq(phoneNumber, isExist)).map {
+                it.onSuccess { res ->
+                    emit(Result.success(res.message))
+                }.onFailure { t ->
+                    emit(Result.failure(t))
+                }
+            }
+        }
     }
 
-    override fun isEmailDup(email: String): Flow<Result<Boolean>> {
-        TODO("Not yet implemented")
+    override suspend fun checkUserIdDB(userId: String, isExist: String): Flow<Result<String>> {
+        return flow {
+            userRemoteData.postCheckUserId(CheckUserIdReq(userId, isExist)).map {
+                it.onSuccess { res ->
+                    emit(Result.success(res.message))
+                }.onFailure { t ->
+                    emit(Result.failure(t))
+                }
+            }
+        }
+    }
+
+    override suspend fun checkNicknameDB(nickname: String, isExist: String): Flow<Result<String>> {
+        return flow {
+            userRemoteData.postCheckNickname(CheckNicknameReq(nickname, isExist)).map {
+                it.onSuccess { res ->
+                    emit(Result.success(res.message))
+                }.onFailure { t ->
+                    emit(Result.failure(t))
+                }
+            }
+        }
     }
 
     override suspend fun saveSignInInfo(signInInfo: SignInInfo) {

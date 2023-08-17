@@ -18,8 +18,8 @@ class UserUseCase @Inject constructor(
 
     fun signIn(accountName: String, password: String) = repository.signIn(accountName, password)
 
-    fun signUp(loginId: String, password: String, nickname: String): Flow<Result<SignUpInfo>> {
-        return repository.signUp(loginId, password, nickname)
+    fun signUp(loginId: String, password: String, phoneNumber: String, nickname: String): Flow<Result<SignUpInfo>> {
+        return repository.signUp(loginId, password, phoneNumber, nickname)
     }
 
     suspend fun saveUserSignInformation(signInInfo: SignInInfo) {

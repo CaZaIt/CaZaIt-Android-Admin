@@ -34,6 +34,7 @@ class SignUpViewModel @Inject constructor(
             userUseCase.signUp(
                 loginId = idText.value,
                 password = passwordText.value,
+                phoneNumber = phoneNumberText.value,
                 nickname = nicknameText.value
             ).collect { result ->
                 Log.d("SignUpViewModel", result.toString())
@@ -42,5 +43,21 @@ class SignUpViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun checkIdDup() {
+
+    }
+
+    fun checkNicknameDup() {
+
+    }
+
+    fun receiveCode() {
+
+    }
+
+    fun sendCode() {
+
     }
 }

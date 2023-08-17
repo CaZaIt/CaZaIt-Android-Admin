@@ -22,3 +22,16 @@ fun <T> processCall(call: suspend () -> Response<CazaitResponse<T>>): Flow<Resul
         }
     }
 }
+
+fun <T> normalProcessCall(call: suspend () -> Response<T>): Flow<Result<T>> {
+    return flow {
+        val response = call()
+        if (response.isSuccessful) {
+            response.body()?.let {
+                emit(Result.success(it))
+            }
+        } else {
+            emit(Result.failure(NetworkErrorException()))
+        }
+    }
+}
