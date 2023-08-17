@@ -1,5 +1,6 @@
 package org.cazait.network.datasource
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import org.bmsk.domain.model.Role
 import org.cazait.network.api.AuthService
@@ -40,7 +41,11 @@ class UserRemoteData @Inject constructor(
     }
 
     override suspend fun postCheckUserId(body: CheckUserIdReq): Flow<Result<CheckRes>> {
-        return normalProcessCall { userService.postUserIdDB(body) }
+        Log.d("UserRemoteData IdDup", body.toString())
+        return normalProcessCall {
+            Log.d("UserRemoteData IdDup", userService.postUserIdDB(body).toString())
+            userService.postUserIdDB(body)
+        }
     }
 
     override suspend fun postCheckNickname(body: CheckNicknameReq): Flow<Result<CheckRes>> {

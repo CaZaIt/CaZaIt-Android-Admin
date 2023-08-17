@@ -26,6 +26,15 @@ class SignUpViewModel @Inject constructor(
     private val _signUpInfoStateFlow = MutableStateFlow<SignUpInfo?>(null)
     val signUpInfoStateFlow = _signUpInfoStateFlow.asStateFlow()
 
+    private val _checkPhoneDupStateFlow = MutableStateFlow<String?>(null)
+    val checkPhoneDupStateFlow = _checkPhoneDupStateFlow.asStateFlow()
+
+    private val _checkIdDupStateFlow = MutableStateFlow<String?>(null)
+    val checkIdDupStateFlow = _checkIdDupStateFlow.asStateFlow()
+
+    private val _checkNicknameDupStateFlow = MutableStateFlow<String?>(null)
+    val checkNicknameDupStateFlow = _checkNicknameDupStateFlow.asStateFlow()
+
     private val _guideMessage = MutableStateFlow("")
     val guideMessage = _guideMessage.asStateFlow()
 
@@ -45,12 +54,38 @@ class SignUpViewModel @Inject constructor(
         }
     }
 
-    fun checkIdDup() {
+    fun checkPhoneDup() {
+        viewModelScope.launch {
+            userUseCase.checkPhoneDup(phoneNumberText.value, "false").collect { result ->
+                Log.d("SignUpViewModel Phone Dup", result.toString())
+                result.onSuccess {
+                    _checkPhoneDupStateFlow.value = it
+                }
+            }
+        }
+    }
 
+    fun checkIdDup() {
+        Log.d("SignUpViewModel Clicked?", "adsf")
+        viewModelScope.launch {
+            userUseCase.checkIdDup(idText.value, "false").collect { result ->
+                Log.d("SignUpViewModel Id Dup", result.toString())
+                result.onSuccess {
+                    _checkIdDupStateFlow.value = it
+                }
+            }
+        }
     }
 
     fun checkNicknameDup() {
-
+        viewModelScope.launch {
+            userUseCase.checkNicknameDup(nicknameText.value, "false").collect { result ->
+                Log.d("SignUpViewModel Nickname Dup", result.toString())
+                result.onSuccess {
+                    _checkNicknameDupStateFlow.value = it
+                }
+            }
+        }
     }
 
     fun receiveCode() {
@@ -59,5 +94,10 @@ class SignUpViewModel @Inject constructor(
 
     fun sendCode() {
 
+    }
+
+    fun showToastMessage(errorMessage: String?) {
+        if (errorMessage == null) return
+        _guideMessage.value = errorMessage
     }
 }

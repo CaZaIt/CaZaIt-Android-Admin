@@ -12,9 +12,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import org.cazait.presentation.R
 import org.cazait.presentation.databinding.FragmentSignUpBinding
+import org.cazait.presentation.ui.util.toGone
+import org.cazait.presentation.ui.util.toVisible
 
 @AndroidEntryPoint
 class SignUpFragment : Fragment() {
@@ -42,6 +45,7 @@ class SignUpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.layoutVerificationCodeInput.toGone()
         observeViewModel()
     }
 
@@ -53,6 +57,23 @@ class SignUpFragment : Fragment() {
                         if (it != null) {
                             navigateToBackStack()
                         }
+                    }
+                }
+                launch {
+                    viewModel.checkPhoneDupStateFlow.collect {
+                        binding.layoutVerificationCodeInput.toVisible()
+                        viewModel.showToastMessage(it)
+                        viewModel.receiveCode()
+                    }
+                }
+                launch {
+                    viewModel.checkIdDupStateFlow.collect {
+                        viewModel.showToastMessage(it)
+                    }
+                }
+                launch {
+                    viewModel.checkNicknameDupStateFlow.collect {
+                        viewModel.showToastMessage(it)
                     }
                 }
             }

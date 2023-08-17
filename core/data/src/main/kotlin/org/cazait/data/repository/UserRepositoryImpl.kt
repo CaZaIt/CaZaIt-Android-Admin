@@ -1,5 +1,6 @@
 package org.cazait.data.repository
 
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
@@ -52,7 +53,7 @@ class UserRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun checkPhoneNumDB(
+    override fun checkPhoneNumDB(
         phoneNumber: String,
         isExist: String
     ): Flow<Result<String>> {
@@ -67,19 +68,22 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun checkUserIdDB(userId: String, isExist: String): Flow<Result<String>> {
+    override fun checkUserIdDB(userId: String, isExist: String): Flow<Result<String>> {
         return flow {
+            Log.d("UserRepository IdDup", "도달했나?")
             userRemoteData.postCheckUserId(CheckUserIdReq(userId, isExist)).map {
                 it.onSuccess { res ->
+                    Log.d("UserRepository IdDup", res.toString())
                     emit(Result.success(res.message))
                 }.onFailure { t ->
+                    Log.d("UserRepository IdDup", t.toString())
                     emit(Result.failure(t))
                 }
             }
         }
     }
 
-    override suspend fun checkNicknameDB(nickname: String, isExist: String): Flow<Result<String>> {
+    override fun checkNicknameDB(nickname: String, isExist: String): Flow<Result<String>> {
         return flow {
             userRemoteData.postCheckNickname(CheckNicknameReq(nickname, isExist)).map {
                 it.onSuccess { res ->

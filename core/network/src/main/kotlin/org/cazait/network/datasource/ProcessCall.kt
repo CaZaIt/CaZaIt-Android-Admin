@@ -1,6 +1,7 @@
 package org.cazait.network.datasource
 
 import android.accounts.NetworkErrorException
+import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import org.bmsk.domain.exception.EmptyDataException
@@ -26,9 +27,10 @@ fun <T> processCall(call: suspend () -> Response<CazaitResponse<T>>): Flow<Resul
 fun <T> normalProcessCall(call: suspend () -> Response<T>): Flow<Result<T>> {
     return flow {
         val response = call()
+        Log.d("ProcessCall", response.toString())
         if (response.isSuccessful) {
-            response.body()?.let {
-                emit(Result.success(it))
+            response.body()?.let { res ->
+                emit(Result.success(res))
             }
         } else {
             emit(Result.failure(NetworkErrorException()))
