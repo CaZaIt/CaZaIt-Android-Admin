@@ -22,11 +22,12 @@
     <string name="login">LOGIN</string>
     <string name="sign_up">회원가입</string>
     <string name="id_example">아이디: 예) cazait123</string>
+    <string name="dup_check">중복확인</string>
     <string name="password">비밀번호</string>
     <string name="password_double_check">비밀번호 확인</string>
     <string name="nickname">닉네임</string>
-    <string name="phoneNumber">휴대폰 번호</string>
-    <string name="verificationCode">인증번호</string>
+    <string name="phoneNumber">휴대폰 번호: 예) 01012345678</string>
+    <string name="verificationCode">인증번호(6자리)</string>
     <string name="receive_code">인증번호받기</string>
     <string name="send_code">인증번호확인</string>
     <string name="do_sign_up">회원가입하기</string>
