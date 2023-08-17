@@ -21,10 +21,14 @@
     <string name="login_password">Password</string>
     <string name="login">LOGIN</string>
     <string name="sign_up">회원가입</string>
-    <string name="email_example">이메일: 예) cazait@caza.com</string>
+    <string name="id_example">아이디: 예) cazait123</string>
     <string name="password">비밀번호</string>
     <string name="password_double_check">비밀번호 확인</string>
     <string name="nickname">닉네임</string>
+    <string name="phoneNumber">휴대폰 번호</string>
+    <string name="verificationCode">인증번호</string>
+    <string name="receive_code">인증번호받기</string>
+    <string name="send_code">인증번호확인</string>
     <string name="do_sign_up">회원가입하기</string>
     <string name="cd_menu_button">메뉴 버튼</string>
     <string name="manage_store">카자잇 매장 관리</string>

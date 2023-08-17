@@ -44,9 +44,9 @@
                 android:id="@+id/emailTextInputEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/email_example"
+                android:hint="@string/id_example"
                 android:minHeight="48dp"
-                android:text="@={viewModel.emailText}" />
+                android:text="@={viewModel.idText}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -110,6 +110,91 @@
                 android:text="@={viewModel.nicknameText}" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/phoneNumberTextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="12dp"
+            app:layout_constraintEnd_toStartOf="@+id/btn_receive_code"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nicknameTextInputLayout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/phoneNumberTextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/phoneNumber"
+                android:imeOptions="actionDone"
+                android:inputType="phone"
+                android:maxLength="11"
+                android:minHeight="48dp"
+                android:text="@={viewModel.phoneNumberText}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_receive_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_black_r20"
+            android:onClick="@{() -> viewModel.signUp()}"
+            android:paddingHorizontal="16dp"
+            android:text="@string/receive_code"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/phoneNumberTextInputLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/phoneNumberTextInputLayout" />
+
+        <FrameLayout
+            android:id="@+id/layout_verificationCode_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/phoneNumberTextInputLayout">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/verificationCodeTextInputLayout"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_send_code"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/verificationCodeTextInputEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/verificationCode"
+                        android:imeOptions="actionDone"
+                        android:inputType="number"
+                        android:maxLength="6"
+                        android:minHeight="48dp"
+                        android:text="@={viewModel.verificationCodeText}" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_send_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rectangle_black_r20"
+                    android:onClick="@{() -> viewModel.signUp()}"
+                    android:paddingHorizontal="16dp"
+                    android:text="@string/send_code"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="@id/verificationCodeTextInputLayout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/verificationCodeTextInputLayout" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
+
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -121,7 +206,7 @@
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/nicknameTextInputLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/layout_verificationCode_input" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

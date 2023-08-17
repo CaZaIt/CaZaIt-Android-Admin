@@ -16,10 +16,12 @@ class SignUpViewModel @Inject constructor(
     private val userUseCase: UserUseCase
 ) : ViewModel() {
 
-    val emailText = MutableStateFlow("")
+    val idText = MutableStateFlow("")
     val passwordText = MutableStateFlow("")
     val passwordDoubleCheckText = MutableStateFlow("")
     val nicknameText = MutableStateFlow("")
+    val phoneNumberText = MutableStateFlow("")
+    val verificationCodeText = MutableStateFlow("")
 
     private val _signUpInfoStateFlow = MutableStateFlow<SignUpInfo?>(null)
     val signUpInfoStateFlow = _signUpInfoStateFlow.asStateFlow()
@@ -30,7 +32,7 @@ class SignUpViewModel @Inject constructor(
     fun signUp() {
         viewModelScope.launch {
             userUseCase.signUp(
-                loginId = emailText.value,
+                loginId = idText.value,
                 password = passwordText.value,
                 nickname = nicknameText.value
             ).collect { result ->
