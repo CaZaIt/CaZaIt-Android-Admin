@@ -8,14 +8,17 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.bmsk.domain.model.CongestionStatus
 import org.bmsk.domain.model.ManagedCafe
-import org.bmsk.domain.usecase.StoreUseCase
+import org.bmsk.domain.usecase.StoreMenuUseCase
+import org.bmsk.domain.usecase.StoreStateUpdateUseCase
 import org.cazait.presentation.model.StoreState
 import javax.inject.Inject
 
 @HiltViewModel
 class StoreStatusViewModel @Inject constructor(
-    private val useCase: StoreUseCase
+    private val storeMenuUseCase: StoreMenuUseCase,
+    private val storeStateUpdateUseCase: StoreStateUpdateUseCase,
 ) : ViewModel() {
     private val _storeState = MutableStateFlow<StoreState?>(null)
     val storeState = _storeState.asStateFlow()
@@ -31,7 +34,7 @@ class StoreStatusViewModel @Inject constructor(
 
     fun fetchManagedCafes() {
         viewModelScope.launch {
-            useCase.getManagedCafes().collect {
+            storeMenuUseCase.getManagedCafes().collect {
                 it.onSuccess { list ->
                     _managedCafesFlow.value = list
                 }
@@ -41,5 +44,9 @@ class StoreStatusViewModel @Inject constructor(
 
     fun selectManagedCafe(managedCafe: ManagedCafe) {
         _selectedCafeFlow.value = managedCafe
+    }
+
+    fun selectCafeStatus(congestionStatus: CongestionStatus) {
+        storeStateUpdateUseCase(congestionStatus)
     }
 }
