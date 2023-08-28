@@ -54,9 +54,8 @@
 
     <style name="LoginButton" parent="TextValue_B">
         <item name="android:layout_width">@dimen/login_button_width</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">@dimen/login_button_height</item>
         <item name="android:gravity">center_horizontal|center_vertical</item>
-        <item name="android:layout_marginHorizontal">@dimen/login_button_marginHorizontal</item>
         <item name="android:background">@drawable/rectangle_black_r20</item>
         <item name="android:text">@string/do_login</item>
     </style>

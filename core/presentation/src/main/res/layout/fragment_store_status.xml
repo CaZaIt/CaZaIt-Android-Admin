@@ -31,11 +31,11 @@
                     android:id="@+id/cazaitLogoImageView"
                     style="@style/TextValue_B"
                     android:layout_width="wrap_content"
-                    android:layout_height="72dp"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:text="@string/manage_store"
-                    android:textColor="@color/dark_choco"
-                    android:textSize="32sp"
+                    android:textColor="@color/black"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -64,10 +64,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:textColor="@color/dark_choco"
-            android:textSize="60sp"
+            android:textColor="@color/black"
+            android:textSize="40sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/horizontalGuideline02"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/appBarLayout"
@@ -101,51 +100,156 @@
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.8" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_cafe_state_free"
-            style="@style/CafeStateButton"
-            android:layout_margin="16dp"
-            android:background="@color/coffee"
-            android:text="@string/state_free"
-            app:layout_constraintBottom_toTopOf="@id/horizontalGuideline05"
-            app:layout_constraintEnd_toStartOf="@id/verticalGuideline035"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/horizontalGuideline02" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_cafe_state_normal"
-            style="@style/CafeStateButton"
-            android:layout_margin="16dp"
-            android:background="@color/coffee"
-            android:text="@string/state_normal"
-            app:layout_constraintBottom_toTopOf="@id/horizontalGuideline05"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cafeStateFreeButton"
+            android:background="@drawable/rectangle_beige_r20"
+            android:layout_width="0dp"
+            android:layout_height="74dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/verticalGuideline035"
-            app:layout_constraintTop_toBottomOf="@id/horizontalGuideline02" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_cafe_state_crowded"
-            style="@style/CafeStateButton"
-            android:layout_margin="16dp"
-            android:background="@color/coffee"
-            android:text="@string/state_crowded"
-            app:layout_constraintBottom_toTopOf="@id/horizontalGuideline07"
-            app:layout_constraintEnd_toStartOf="@id/verticalGuideline035"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/horizontalGuideline05" />
+            app:layout_constraintTop_toBottomOf="@id/horizontalGuideline02">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_cafe_state_very_crowded"
-            style="@style/CafeStateButton"
-            android:layout_margin="16dp"
-            android:background="@color/coffee"
-            android:text="@string/very_crowded"
-            app:layout_constraintBottom_toTopOf="@id/horizontalGuideline07"
+            <TextView
+                android:id="@+id/cafeStateFreeTextView"
+                style="@style/TextValue_B"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:gravity="center"
+                android:text="@string/state_free"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/cafeStateFreeDescriptionTextView"
+                style="@style/TextValue_EB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="빈 좌석 3분의 2이상"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cafeStateNormalButton"
+            android:background="@drawable/rectangle_beige_r20"
+            android:layout_width="0dp"
+            android:layout_height="74dp"
+            android:layout_marginTop="13dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/verticalGuideline035"
-            app:layout_constraintTop_toBottomOf="@id/horizontalGuideline05"
-            tools:background="@color/choco_tablet" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cafeStateFreeButton">
 
+            <TextView
+                android:id="@+id/cafeStateNormalTextView"
+                style="@style/TextValue_B"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:gravity="center"
+                android:text="@string/state_free"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/cafeStateNormalDescriptionTextView"
+                style="@style/TextValue_EB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="빈 좌석 3분의 1 이상"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cafeStateCrowdedButton"
+            android:background="@drawable/rectangle_beige_r20"
+            android:layout_width="0dp"
+            android:layout_height="74dp"
+            android:layout_marginTop="13dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cafeStateNormalButton">
+
+            <TextView
+                android:id="@+id/cafeStateCrowdedTextView"
+                style="@style/TextValue_B"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:gravity="center"
+                android:text="@string/state_crowded"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/cafeStateCrowdedDescriptionTextView"
+                style="@style/TextValue_EB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="빈 좌석 거의 없음"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cafeStateVeryCrowdedButton"
+            android:background="@drawable/rectangle_beige_r20"
+            android:layout_width="0dp"
+            android:layout_height="74dp"
+            android:layout_marginTop="13dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cafeStateCrowdedButton">
+
+            <TextView
+                android:id="@+id/cafeStateVeryCrowdedTextView"
+                style="@style/TextValue_B"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:gravity="center"
+                android:text="@string/state_very_crowded"
+                android:textSize="30sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/cafeStateVeryCrowdedDescriptionTextView"
+                style="@style/TextValue_EB"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="빈 좌석 없음 / 주문 다수"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

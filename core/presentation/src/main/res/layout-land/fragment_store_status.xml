@@ -160,7 +160,7 @@
             style="@style/CafeStateButton"
             android:layout_margin="16dp"
             android:background="@color/coffee"
-            android:text="@string/very_crowded"
+            android:text="@string/state_very_crowded"
             app:layout_constraintBottom_toTopOf="@id/horizontalGuideline07"
             app:layout_constraintEnd_toStartOf="@id/verticalGuideline060"
             app:layout_constraintStart_toEndOf="@id/verticalGuideline035"

@@ -9,7 +9,8 @@
     <dimen name="login_input_marginHorizontal">30dp</dimen>
     <dimen name="login_input_marginTop">17dp</dimen>
     <dimen name="login_input_padding">23dp</dimen>
-    <dimen name="login_button_width">310dp</dimen>
+    <dimen name="login_button_width">398dp</dimen>
+    <dimen name="login_button_height">58dp</dimen>
     <dimen name="login_button_marginHorizontal">60dp</dimen>
     <dimen name="login_button_marginTop">32dp</dimen>
 </resources>
