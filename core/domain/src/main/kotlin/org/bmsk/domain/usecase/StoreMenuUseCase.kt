@@ -6,7 +6,7 @@ import org.bmsk.domain.repository.StoreRepository
 import org.bmsk.domain.repository.UserRepository
 import javax.inject.Inject
 
-class StoreUseCase @Inject constructor(
+class StoreMenuUseCase @Inject constructor(
     private val userRepository: UserRepository,
     private val storeRepository: StoreRepository
 ) {
