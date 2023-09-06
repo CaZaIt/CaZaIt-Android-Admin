@@ -1,6 +1,7 @@
 package org.cazait.presentation.ui.storestatus
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,11 +9,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.bmsk.domain.exception.UnauthorizedException
 import org.cazait.presentation.R
 import org.cazait.presentation.databinding.FragmentManagedStoresBinding
 import org.cazait.presentation.ui.adapter.ManagedCafesAdapter
@@ -57,8 +60,25 @@ class ManagedStoresFragment : Fragment() {
         viewModel.fetchManagedCafes()
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.managedCafesFlow.collectLatest {
-                managedCafesAdapter.submitList(it)
+            launch {
+                viewModel.managedCafesFlow.collectLatest {
+                    managedCafesAdapter.submitList(it)
+                }
+            }
+            launch {
+                viewModel.errorEventFlow.collect {
+                    Log.e("ManagedStoresFragment", it.toString())
+                    if (it is UnauthorizedException) {
+                        findNavController().navigate(
+                            ManagedStoresFragmentDirections.actionManagedStoresFragmentToSignInFragment(),
+                            NavOptions.Builder()
+                                .setPopUpTo(
+                                    R.id.managedStoresFragment,
+                                    true // Inclusive: true if signInFragment should be removed, false otherwise.
+                                ).build()
+                        )
+                    }
+                }
             }
         }
     }

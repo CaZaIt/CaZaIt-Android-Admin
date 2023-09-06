@@ -6,9 +6,9 @@ import org.cazait.network.dto.response.CongestionUpdateOutDto
 import java.util.UUID
 
 interface CafeCongestionRemoteDataSource {
-    suspend fun postCafeCongestion(
+    fun postCafeCongestion(
         masterId: UUID,
-        cafeId: Long,
+        cafeId: UUID,
         requestBody: CongestionRequestBody
     ): Flow<Result<CongestionUpdateOutDto>>
 }

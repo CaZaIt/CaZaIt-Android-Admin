@@ -1,10 +1,11 @@
 package org.cazait.network.dto.response
 
 import com.google.gson.annotations.SerializedName
+import java.util.UUID
 
 data class ManagedCafeListOutDto(
     @SerializedName("cafeId")
-    val cafeId: Long,
+    val cafeId: UUID,
     @SerializedName("name")
     val name: String,
     @SerializedName("address")

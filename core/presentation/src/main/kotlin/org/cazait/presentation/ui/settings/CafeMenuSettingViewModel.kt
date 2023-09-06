@@ -10,12 +10,12 @@ import kotlinx.coroutines.launch
 import org.bmsk.domain.DomainResult
 import org.bmsk.domain.model.CafeMenu
 import org.bmsk.domain.usecase.ErrorUseCase
-import org.bmsk.domain.usecase.StoreUseCase
+import org.bmsk.domain.usecase.StoreMenuUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class CafeMenuSettingViewModel @Inject constructor(
-    private val storeUseCase: StoreUseCase,
+    private val storeUseCase: StoreMenuUseCase,
     private val errorUseCase: ErrorUseCase
 ) : ViewModel() {
     private val _submitMenuChangesEvent = MutableSharedFlow<DomainResult<String>>()

@@ -4,14 +4,15 @@ import kotlinx.coroutines.flow.Flow
 import org.bmsk.domain.model.ManagedCafe
 import org.bmsk.domain.repository.StoreRepository
 import org.bmsk.domain.repository.UserRepository
+import java.util.UUID
 import javax.inject.Inject
 
-class StoreUseCase @Inject constructor(
+class StoreMenuUseCase @Inject constructor(
     private val userRepository: UserRepository,
     private val storeRepository: StoreRepository
 ) {
     fun addCafeMenu(
-        cafeId: Long,
+        cafeId: UUID,
         name: String,
         description: String,
         price: Int,

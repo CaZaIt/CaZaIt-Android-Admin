@@ -17,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.bmsk.domain.exception.UnauthorizedException
+import org.bmsk.domain.model.CongestionStatus
 import org.bmsk.domain.model.ManagedCafe
 import org.cazait.presentation.R
 import org.cazait.presentation.databinding.FragmentStoreStatusBinding
@@ -49,6 +50,7 @@ class StoreStatusFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeViewModel()
+        initCafeStatusButtons()
     }
 
     fun showMenu() {
@@ -114,6 +116,23 @@ class StoreStatusFragment : Fragment() {
         storeMenuSettingButton.setOnClickListener {
             sideSheetMenu.cancel()
             navigateToCafeMenuSettingFragment()
+        }
+    }
+
+    private fun initCafeStatusButtons() {
+        with(binding) {
+            cafeStateFreeButton?.setOnClickListener {
+                viewModel.selectCafeStatus(congestionStatus = CongestionStatus.FREE)
+            }
+            cafeStateNormalButton?.setOnClickListener {
+                viewModel.selectCafeStatus(congestionStatus = CongestionStatus.NORMAL)
+            }
+            cafeStateCrowdedButton?.setOnClickListener {
+                viewModel.selectCafeStatus(congestionStatus = CongestionStatus.CROWED)
+            }
+            cafeStateVeryCrowdedButton?.setOnClickListener {
+                viewModel.selectCafeStatus(congestionStatus = CongestionStatus.VERY_CROWED)
+            }
         }
     }
 

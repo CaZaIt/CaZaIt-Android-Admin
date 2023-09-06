@@ -15,7 +15,7 @@ interface CongestionService {
         @Path("masterId")
         masterId: UUID,
         @Path("cafeId")
-        cafeId: Long,
+        cafeId: UUID,
         @Body
         congestionRequestBody: CongestionRequestBody
     ): Response<CazaitResponse<CongestionUpdateOutDto>>

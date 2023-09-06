@@ -1,4 +1,4 @@
-package org.cazait.presentation.ui.util
+package org.cazait.presentation.util
 
 import android.net.Uri
 import android.widget.ImageView

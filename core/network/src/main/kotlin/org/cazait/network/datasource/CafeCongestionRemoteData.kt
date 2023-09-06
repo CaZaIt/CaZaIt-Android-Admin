@@ -10,9 +10,9 @@ import javax.inject.Inject
 class CafeCongestionRemoteData @Inject constructor(
     private val congestionService: CongestionService
 ) : CafeCongestionRemoteDataSource {
-    override suspend fun postCafeCongestion(
+    override fun postCafeCongestion(
         masterId: UUID,
-        cafeId: Long,
+        cafeId: UUID,
         requestBody: CongestionRequestBody
     ): Flow<Result<CongestionUpdateOutDto>> {
         return processCall { congestionService.postCongestionStatus(masterId, cafeId, requestBody) }

@@ -3,7 +3,7 @@
     <string name="state_free">여유</string>
     <string name="state_normal">보통</string>
     <string name="state_crowded">혼잡</string>
-    <string name="very_crowded">매우 혼잡</string>
+    <string name="state_very_crowded">매우 혼잡</string>
 
     <string name="title_activity_login">카자잇 관리자</string>
     <string name="prompt_email">Email</string>
