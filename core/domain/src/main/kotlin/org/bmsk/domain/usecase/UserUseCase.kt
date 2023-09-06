@@ -22,7 +22,6 @@ class UserUseCase @Inject constructor(
         return repository.signUp(loginId, password, nickname)
     }
 
-    suspend fun saveUserSignInformation(signInInfo: SignInInfo) {
+    suspend fun saveUserSignInformation(signInInfo: SignInInfo) =
         repository.saveSignInInfo(signInInfo)
-    }
 }
