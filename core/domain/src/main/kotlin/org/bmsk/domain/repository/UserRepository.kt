@@ -15,5 +15,5 @@ interface UserRepository {
     fun isNicknameDup(nickname: String): Flow<Result<Boolean>>
     fun isEmailDup(email: String): Flow<Result<Boolean>>
 
-    suspend fun saveSignInInfo(signInInfo: SignInInfo)
+    suspend fun saveSignInInfo(signInInfo: SignInInfo): UserPreference
 }

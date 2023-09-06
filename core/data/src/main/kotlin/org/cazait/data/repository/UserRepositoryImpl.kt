@@ -56,16 +56,14 @@ class UserRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override suspend fun saveSignInInfo(signInInfo: SignInInfo) {
-        userPreferenceRepository.updateUserPreference(
-            isLoggedIn = true,
-            id = signInInfo.id.toString(),
-            accountName = signInInfo.accountName,
-            role = signInInfo.role,
-            accessToken = signInInfo.accessToken,
-            refreshToken = signInInfo.refreshToken
-        )
-    }
+    override suspend fun saveSignInInfo(signInInfo: SignInInfo) = userPreferenceRepository.updateUserPreference(
+        isLoggedIn = true,
+        id = signInInfo.id.toString(),
+        accountName = signInInfo.accountName,
+        role = signInInfo.role,
+        accessToken = signInInfo.accessToken,
+        refreshToken = signInInfo.refreshToken
+    )
 
 }
 
