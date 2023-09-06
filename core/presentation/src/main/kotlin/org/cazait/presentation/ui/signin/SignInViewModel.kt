@@ -39,6 +39,7 @@ class SignInViewModel @Inject constructor(
                 result.onSuccess { signInInfo ->
                     _signInInfoStateFlow.value = signInInfo
                     userUseCase.saveUserSignInformation(signInInfo)
+                    _userPreference.value = userUseCase.getCurrentUser()
                 }.onFailure {
                     Log.e("SignInViewModel", "실패입니다.")
                 }

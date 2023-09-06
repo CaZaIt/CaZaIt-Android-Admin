@@ -8,7 +8,7 @@ import java.util.UUID
 interface StoreRepository {
     /** cafe image */
     fun addCafeBackgroundImage(
-        cafeId: Long,
+        cafeId: UUID,
         imageUrl: List<String>
     ): Flow<Result<String>>
 
@@ -16,7 +16,7 @@ interface StoreRepository {
 
     /** cafe menu */
     fun addCafeMenu(
-        cafeId: Long,
+        cafeId: UUID,
         name: String,
         description: String,
         price: Int,
@@ -37,18 +37,18 @@ interface StoreRepository {
 
     /** cafe description */
     fun updateCafeDescription(
-        cafeId: Long,
+        cafeId: UUID,
         cafeName: String,
         address: String
     ): Flow<Result<String>>
 
     /** cafe activation */
-    fun updateCafeActivation(cafeId: Long): Flow<Result<String>>
+    fun updateCafeActivation(cafeId: UUID): Flow<Result<String>>
     fun resistCafe(name: String, address: String): Flow<Result<String>>
 
     /** cafe congestion */
     fun updateCafeCongestionStatus(
-        cafeId: Long,
+        cafeId: UUID,
         congestionStatus: CongestionStatus
     ): Flow<Result<String>>
 

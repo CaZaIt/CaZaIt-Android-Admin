@@ -17,7 +17,7 @@ class StoreRepositoryImpl @Inject constructor(
     private val cafeCongestionRemoteData: CafeCongestionRemoteData,
 ) : StoreRepository {
 
-    override fun addCafeBackgroundImage(cafeId: Long, imageUrl: List<String>): Flow<Result<String>> {
+    override fun addCafeBackgroundImage(cafeId: UUID, imageUrl: List<String>): Flow<Result<String>> {
         TODO("Not yet implemented")
     }
 
@@ -25,7 +25,7 @@ class StoreRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override fun addCafeMenu(cafeId: Long, name: String, description: String, price: Int, imageUrl: String): Flow<Result<String>> {
+    override fun addCafeMenu(cafeId: UUID, name: String, description: String, price: Int, imageUrl: String): Flow<Result<String>> {
         TODO("Not yet implemented")
     }
 
@@ -37,11 +37,11 @@ class StoreRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override fun updateCafeDescription(cafeId: Long, cafeName: String, address: String): Flow<Result<String>> {
+    override fun updateCafeDescription(cafeId: UUID, cafeName: String, address: String): Flow<Result<String>> {
         TODO("Not yet implemented")
     }
 
-    override fun updateCafeActivation(cafeId: Long): Flow<Result<String>> {
+    override fun updateCafeActivation(cafeId: UUID): Flow<Result<String>> {
         TODO("Not yet implemented")
     }
 
@@ -49,7 +49,7 @@ class StoreRepositoryImpl @Inject constructor(
         TODO("Not yet implemented")
     }
 
-    override fun updateCafeCongestionStatus(cafeId: Long, congestionStatus: CongestionStatus): Flow<Result<String>> {
+    override fun updateCafeCongestionStatus(cafeId: UUID, congestionStatus: CongestionStatus): Flow<Result<String>> {
         TODO("Not yet implemented")
     }
 
