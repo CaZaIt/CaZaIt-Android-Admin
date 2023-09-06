@@ -48,6 +48,7 @@ interface StoreRepository {
 
     /** cafe congestion */
     fun updateCafeCongestionStatus(
+        userId: UUID,
         cafeId: UUID,
         congestionStatus: CongestionStatus
     ): Flow<Result<String>>

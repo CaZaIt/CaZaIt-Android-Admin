@@ -1,6 +1,7 @@
 package org.cazait.presentation.ui.storestatus
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import org.bmsk.domain.exception.UnauthorizedException
 import org.cazait.presentation.R
 import org.cazait.presentation.databinding.FragmentManagedStoresBinding
 import org.cazait.presentation.ui.adapter.ManagedCafesAdapter
@@ -57,8 +59,20 @@ class ManagedStoresFragment : Fragment() {
         viewModel.fetchManagedCafes()
 
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.managedCafesFlow.collectLatest {
-                managedCafesAdapter.submitList(it)
+            launch {
+                viewModel.managedCafesFlow.collectLatest {
+                    managedCafesAdapter.submitList(it)
+                }
+            }
+            launch {
+                viewModel.errorEventFlow.collect {
+                    Log.e("ManagedStoresFragment", it.toString())
+                    if (it is UnauthorizedException) {
+                        Log.e("ManagedStoresFragment", it.toString())
+
+                        findNavController().popBackStack()
+                    }
+                }
             }
         }
     }
