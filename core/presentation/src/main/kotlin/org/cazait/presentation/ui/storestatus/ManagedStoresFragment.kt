@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -68,9 +69,14 @@ class ManagedStoresFragment : Fragment() {
                 viewModel.errorEventFlow.collect {
                     Log.e("ManagedStoresFragment", it.toString())
                     if (it is UnauthorizedException) {
-                        Log.e("ManagedStoresFragment", it.toString())
-
-                        findNavController().popBackStack()
+                        findNavController().navigate(
+                            ManagedStoresFragmentDirections.actionManagedStoresFragmentToSignInFragment(),
+                            NavOptions.Builder()
+                                .setPopUpTo(
+                                    R.id.managedStoresFragment,
+                                    true // Inclusive: true if signInFragment should be removed, false otherwise.
+                                ).build()
+                        )
                     }
                 }
             }

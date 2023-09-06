@@ -72,6 +72,9 @@
         <action
             android:id="@+id/action_managedStoresFragment_to_storeStatusFragment"
             app:destination="@id/storeStatusFragment" />
+        <action
+            android:id="@+id/action_managedStoresFragment_to_signInFragment"
+            app:destination="@id/signInFragment" />
     </fragment>
     <fragment
         android:id="@+id/cafeMenuSettingFragment"
